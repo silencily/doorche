@@ -11,10 +11,20 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "T_SM_PARAMETER")
 public class TsmParameter extends AbstractEntity {
+    private String paramType;
     private String paramName;
     private String paramKey;
     private String paramValue;
     private String remarks;
+
+    @Column(name = "PARAM_TYPE")
+    public String getParamType() {
+        return paramType;
+    }
+
+    public void setParamType(String paramType) {
+        this.paramType = paramType;
+    }
 
     @Column(name = "PARAM_NAME")
     public String getParamName() {

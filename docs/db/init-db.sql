@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `portal` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
-USE `portal`;
+CREATE DATABASE  IF NOT EXISTS `doorche` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_bin */;
+USE `doorche`;
 -- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
 --
 -- Host: localhost    Database: portal
