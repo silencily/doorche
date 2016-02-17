@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>portal-publisher</title>
+    <title>Doorche-admin-login</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -14,9 +14,9 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="${ctxStatic}/assets/ionicons-2.0.1/css/ionicons.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="${ctxStatic}/css/base.css">
+    <link rel="stylesheet" href="${ctxStatic}/assets/admin/css/admin.css">
     <!-- iCheck -->
-    <link rel="stylesheet" href="${ctxStatic}/assets/plugins/iCheck/square/blue.css">
+    <link rel="stylesheet" href="${ctxStatic}/assets/iCheck/square/blue.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,13 +28,13 @@
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="${ctx}/"><b>Admin</b>LTE</a>
+        <a href="${ctx}/"><b>Doorche</b>Admin</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">登录</p>
         <form action="${ctx}/j_spring_security_check" method="post">
           <div class="form-group has-feedback">
-            <input type="text" class="form-control" placeholder="userName" name="j_username">
+            <input type="text" class="form-control" placeholder="UserName" name="j_username">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
@@ -58,11 +58,11 @@
     </div><!-- /.login-box -->
 
     <!-- jQuery 2.1.4 -->
-    <script src="${ctxStatic}/assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <script src="${ctxStatic}/assets/jQuery/jQuery-2.1.4.min.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="${ctxStatic}/assets/bootstrap/js/bootstrap.min.js"></script>
     <!-- iCheck -->
-    <script src="${ctxStatic}/assets/plugins/iCheck/icheck.min.js"></script>
+    <script src="${ctxStatic}/assets/iCheck/icheck.min.js"></script>
     <script>
       $(function () {
         $('input').iCheck({
