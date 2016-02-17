@@ -75,14 +75,14 @@ public class DoorcheUserDetails extends User {
             Map<Integer, DoorchePermission> menuPermission = authority.getMenuPermissions();
             for (Map.Entry<Integer, DoorchePermission> entry : menuPermission.entrySet()) {
                 Integer key = entry.getKey();
-                DoorchePermission DoorchePermission = entry.getValue();
+                DoorchePermission doorchePermission = entry.getValue();
                 if (menuPermissionMap.containsKey(key)) {
                     org.silencer.doorche.security.DoorchePermission existDoorchePermission = menuPermissionMap.get(key);
-                    for (org.silencer.doorche.security.DoorchePermission child : DoorchePermission.getChildren()) {
+                    for (org.silencer.doorche.security.DoorchePermission child : doorchePermission.getChildren()) {
                         existDoorchePermission.addChild(child);
                     }
                 } else {
-                    menuPermissionMap.put(key, DoorchePermission);
+                    menuPermissionMap.put(key, doorchePermission);
                 }
             }
         }
