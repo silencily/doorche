@@ -8,13 +8,25 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>doorche-admin</artifactId>
     <packaging>war</packaging>
-    <name>doorche-admin Maven Webapp</name>
+    <name>doorche-admin</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
             <groupId>org.silencer</groupId>
             <artifactId>doorche-core</artifactId>
             <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>sitemesh</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
         </dependency>
     </dependencies>
     <build>
