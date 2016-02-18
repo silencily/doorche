@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | 404 Page not found</title>
+    <title>Doorche-admin | 404 Page not found</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
@@ -13,10 +13,10 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="${ctxStatic}/assets/ionicons-2.0.1/css/ionicons.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="${ctxStatic}/css/base.css">
+    <link rel="stylesheet" href="${ctxStatic}/assets/admin/css/admin.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="${ctxStatic}/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="${ctxStatic}/assets/admin/css/skins/_all-skins.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
