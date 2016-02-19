@@ -12,13 +12,5 @@ import org.silencer.doorche.security.SecurityContextHelper;
  */
 public abstract class AbstractControllerSupport {
     protected final Log logger = LogFactory.getLog(getClass());
-    /**
-     * 获取当前用户信息
-     *
-     * @return 当前登录用户信息
-     */
-    public DoorcheUserDetails obtainCurrentUser() {
-        return (DoorcheUserDetails) SecurityContextHelper.obtainCurrentSecurityUser();
 
-    }
 }

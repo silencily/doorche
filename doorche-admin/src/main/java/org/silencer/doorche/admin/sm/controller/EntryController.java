@@ -1,5 +1,6 @@
 package org.silencer.doorche.admin.sm.controller;
 
+import org.silencer.doorche.admin.support.web.AbstractAdminController;
 import org.silencer.doorche.security.DoorchePermission;
 import org.silencer.doorche.security.DoorcheUserDetails;
 import org.silencer.doorche.support.AbstractControllerSupport;
@@ -16,17 +17,13 @@ import java.util.List;
  * @since 2016/2/18
  */
 @Controller
-public class EntryController extends AbstractControllerSupport {
+public class EntryController extends AbstractAdminController {
     @RequestMapping(value = "login")
     public String login() {
         return "login";
     }
     @RequestMapping(value = "/")
-    public String index(Model model){
-        DoorcheUserDetails currentUser = obtainCurrentUser();
-        List<DoorchePermission> menus = currentUser.getMenuPermissions();
-        model.addAttribute("currentUser", currentUser);
-        model.addAttribute("menus", menus);
+    public String index(){
         return "index";
     }
 }
