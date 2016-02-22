@@ -113,7 +113,7 @@ desired effect
                                 class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
                             <c:forEach items="${menu.children}" var="child">
-                                <li><a href="javascript:void(0);" data-href="${child.href}">
+                                <li><a href="${child.href}" data-href="${child.href}">
                                     <i class="fa fa-circle-o"></i> ${child.name}</a></li>
                             </c:forEach>
                         </ul>
@@ -129,10 +129,14 @@ desired effect
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
+            <h1>
+                主页
+            </h1>
 
             <ol class="breadcrumb">
-                <li><span><i class="fa fa-dashboard"></i> <span id="breadcrumb-catalog"></span></span></li>
-                <li class="active"><span id="breadcrumb-menu"></span></li>
+                <li><i class="fa fa-dashboard"></i> 主页</li>
+                <li>系统管理</li>
+                <li class="active">用户管理</li>
             </ol>
         </section>
 
