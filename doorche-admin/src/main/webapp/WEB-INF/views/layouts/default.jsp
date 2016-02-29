@@ -56,14 +56,16 @@ desired effect
                         <!-- Menu Toggle Button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <!-- The user image in the navbar-->
-                            <img src="${ctxStatic}/assets/admin/img/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <img src="${ctxStatic}/assets/admin/img/user2-160x160.jpg" class="user-image"
+                                 alt="User Image">
                             <!-- hidden-xs hides the username on small devices so only the image appears. -->
                             <span class="hidden-xs">${currentUser.chName}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="${ctxStatic}/assets/admin/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                                <img src="${ctxStatic}/assets/admin/img/user2-160x160.jpg" class="img-circle"
+                                     alt="User Image">
 
                                 <p>
                                     ${currentUser.username} - ${currentUser.no}
@@ -111,9 +113,9 @@ desired effect
                     <li class="treeview">
                         <a href="#"><i class="fa fa-laptop"></i> <span>${menu.name}</span> <i
                                 class="fa fa-angle-left pull-right"></i></a>
-                        <ul class="treeview-menu">
+                        <ul class="treeview-menu" data-name="${menu.name}">
                             <c:forEach items="${menu.children}" var="child">
-                                <li><a href="${child.href}" data-href="${child.href}">
+                                <li><a href="${child.href}" data-href="${child.href}" data-name="${child.name}">
                                     <i class="fa fa-circle-o"></i> ${child.name}</a></li>
                             </c:forEach>
                         </ul>
@@ -129,14 +131,14 @@ desired effect
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
+            <h1 id="content-title">
                 主页
             </h1>
 
             <ol class="breadcrumb">
                 <li><i class="fa fa-dashboard"></i> 主页</li>
-                <li>系统管理</li>
-                <li class="active">用户管理</li>
+                <li id="nav-content-title-fst">系统管理</li>
+                <li id="nav-content-title-scd" class="active">用户管理</li>
             </ol>
         </section>
 
@@ -170,16 +172,19 @@ desired effect
 <script src="${ctxStatic}/assets/admin/js/app.js"></script>
 <script type="text/javascript">
     $(function () {
-        $(".treeview-menu li a").click(function () {
-            $(".treeview-menu li").removeClass("active");
-            $(this).parent().addClass("active");
-            var ctx = global.ctx;
-            var href = $(this).data("href");
-            var menuName = $(this).text();
-            var catalogName = $(this).parents(".treeview").find("span").first().text();
-            $("#breadcrumb-catalog").text(catalogName);
-            $("#breadcrumb-menu").text(menuName);
-            $("#content-frame").attr("src", ctx + href);
+        //获取当前路径地址
+        var currentHref = location.href;
+        $(".treeview-menu li").each(function (idx, element) {
+            var menuHref = $(element).find("a").data("href");
+            if (currentHref.indexOf(menuHref) > 0) {
+                $(element).addClass("active");
+                $(element).parent().parent().addClass("active");
+                var menuName = $(element).find("a").data("name");
+                var parentMenuName = $(element).parent().data("name");
+                $("#content-title").text(menuName);
+                $("#nav-content-title-scd").text(menuName);
+                $("#nav-content-title-fst").text(parentMenuName);
+            }
         });
     });
 </script>

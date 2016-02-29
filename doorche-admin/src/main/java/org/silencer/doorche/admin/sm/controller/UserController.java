@@ -11,5 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/sm/user")
 public class UserController extends AbstractAdminController {
+    @RequestMapping
+    public String list(){
+        return "sm/user/list";
+    }
 
 }
