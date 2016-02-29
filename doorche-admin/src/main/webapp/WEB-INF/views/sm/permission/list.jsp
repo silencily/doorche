@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Doorche-Admin | 用户列表</title>
+    <title>Doorche-Admin | 权限列表</title>
     <meta name="decorator" content="default"/>
 
 </head>
@@ -12,7 +12,7 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#tab_1" data-toggle="tab">列表</a></li>
-        <li><a href="#tab_2" data-toggle="tab">添加用户</a></li>
+        <li><a href="#tab_2" data-toggle="tab">添加权限</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="tab_1">
