@@ -162,14 +162,7 @@ desired effect
 </div>
 <!-- ./wrapper -->
 
-<!-- REQUIRED JS SCRIPTS -->
 
-<!-- jQuery 2.1.4 -->
-<script src="${ctxStatic}/assets/jQuery/jQuery-2.1.4.min.js"></script>
-<!-- Bootstrap 3.3.5 -->
-<script src="${ctxStatic}/assets/bootstrap/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="${ctxStatic}/assets/admin/js/app.js"></script>
 <script type="text/javascript">
     $(function () {
         //获取当前路径地址
