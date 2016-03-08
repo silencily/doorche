@@ -3,8 +3,8 @@
  */
 package org.silencer.doorche.context;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -24,7 +24,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 
     private static ApplicationContext applicationContext = null;
 
-    private static Logger logger = LoggerFactory.getLogger(SpringContextHolder.class);
+    private static Log logger = LogFactory.getLog(SpringContextHolder.class);
 
     /**
      * 取得存储在静态变量中的ApplicationContext.
