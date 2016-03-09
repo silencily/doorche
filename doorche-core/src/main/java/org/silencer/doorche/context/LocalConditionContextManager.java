@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
  * @since 2016/3/8
  */
 @Component
-@Lazy(false)
 public class LocalConditionContextManager implements ConditionContextManager {
 
     private static final ThreadLocal<ConditionContext> conditionContext = new ThreadLocal<ConditionContext>();
