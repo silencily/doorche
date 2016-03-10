@@ -12,4 +12,10 @@ public interface ConditionContextManager {
      * @return 条件上下文
      */
     public ConditionContext getConditionContext();
+
+    /**
+     * 设置条件上下文
+     * @param context
+     */
+    public void setConditionContext(ConditionContext context);
 }

@@ -12,5 +12,6 @@ import org.silencer.doorche.security.SecurityContextHelper;
  */
 public abstract class AbstractControllerSupport {
     protected final Log logger = LogFactory.getLog(getClass());
+    //public
 
 }

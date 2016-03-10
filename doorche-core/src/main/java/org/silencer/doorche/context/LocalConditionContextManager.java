@@ -1,6 +1,5 @@
 package org.silencer.doorche.context;
 
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,4 +20,11 @@ public class LocalConditionContextManager implements ConditionContextManager {
         }
         return conditionContext.get();
     }
+
+    @Override
+    public void setConditionContext(ConditionContext context) {
+        conditionContext.set(context);
+    }
+
+
 }

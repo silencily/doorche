@@ -4,6 +4,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.silencer.doorche.entity.AbstractEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,9 +35,30 @@ public class HibernateTemplate {
 
     }
 
-    public <T> List<T> findByClass(Class<T> clazz){
-        DetachedCriteria dc =DetachedCriteria.forClass(clazz);
-        return (List<T>)findByCriteria(dc);
+    public <T> List<T> findByClass(Class<T> clazz) {
+        DetachedCriteria dc = DetachedCriteria.forClass(clazz);
+        return (List<T>) findByCriteria(dc);
+    }
+
+
+    /**
+     * 更新保存
+     *
+     * @param entity
+     */
+    public void update(AbstractEntity entity) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(entity);
+    }
+
+    /**
+     * 新增保存
+     *
+     * @param entity
+     */
+    public void save(AbstractEntity entity) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(entity);
     }
 
 
