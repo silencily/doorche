@@ -1,5 +1,8 @@
 package org.silencer.doorche.context;
 
+
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 
 /**
@@ -7,6 +10,81 @@ import java.io.Serializable;
  * @since 2016/3/10
  */
 public class Condition implements Serializable, Comparable<Condition> {
+    /**
+     * 表示属性等于值
+     */
+    public static final String EQUAL = "=";
+
+    /**
+     * 表示属性不等于值
+     */
+    public static final String NOT_EQUAL = "!=";
+
+    /**
+     * 表示属性大于或等于值
+     */
+    public static final String GREATER_EQUAL = ">=";
+
+    /**
+     * 表示属性大于值
+     */
+    public static final String GREATER = ">";
+
+    /**
+     * 表示属性小于或等于值
+     */
+    public static final String LESS_EQUAL = "<=";
+
+    /**
+     * 表示属性小于值
+     */
+    public static final String LESS = "<";
+
+    /**
+     * 表示属性满足匹配的值
+     */
+    public static final String LIKE = "like";
+
+    /**
+     * 表示<code>sql</code>语句中的<code>in</code>关系操作符
+     */
+    public static final String IN = "in";
+
+    /**
+     * 表示属性之间的"and"关系
+     */
+    public static final String AND = "and";
+
+    /**
+     * 表示属性之间的"or"关系
+     */
+    public static final String OR = "or";
+
+    /**
+     * 嵌套属性之间的分隔符
+     */
+    public static final String PROPERTY_SEPARATOR = ".";
+
+    /** 表示属性之间的"not"关系 */
+    /*
+    String NOT = "not";
+    */
+
+    /**
+     * 当不指定属性与值之间的操作符时使用的缺省操作符
+     */
+    public static final String DEFAULT_OPERATOR = EQUAL;
+
+    /**
+     * 当不指定属性之间的关系时使用这个缺省的关系
+     */
+    public static final String DEFAULT_RELATION = AND;
+
+    /**
+     * 当不指定条件的类型时缺省的条件值类型
+     */
+    public static final Class DEFAULT_TYPE = String.class;
+
     /**
      * 作为检索条件的<code>domain object</code>的属性名称
      */
@@ -59,7 +137,6 @@ public class Condition implements Serializable, Comparable<Condition> {
      * 当属性名中出现 "." 时是否创建别名, 在两种情况下可能出现 "."
      * <ul>
      * <li>此属性是一个关联属性, 此时 createAlias 应该为 true, 这也是默认情况</li>
-     * <li>此属性是一个复合类型, 即 org.hibernate.usertype.CompositeUserType 的实现,  此时 createAlias 应该为 false</li>
      * </ul>
      */
     private boolean createAlias = true;
@@ -67,10 +144,124 @@ public class Condition implements Serializable, Comparable<Condition> {
     /**
      * 相关的一组条件, 比如组成<code>... and (cond1 or cond2)</code>
      */
-    private Condition[] compositeConditions;
+    //private Condition[] compositeConditions;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public Class getType() {
+        return type;
+    }
+
+    public void setType(Class type) {
+        this.type = type;
+    }
+
+    public String getPrepend() {
+        return prepend;
+    }
+
+    public void setPrepend(String prepend) {
+        this.prepend = prepend;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    /**
+     * <p>执行查询时是否考虑这个条件, 如果明确设置了<code>false</code>或者这个条件的值是空
+     * 并且<code>ignoreEmpty</code>返回<code>true</code>,执行查询时就不考虑这个条件</p>
+     * <p>当执行查询时这个方法作为是否考虑这个条件的唯一标准</p>
+     *
+     * @return 执行查询时是否考虑这个条件
+     */
+    public boolean isPlace() {
+        if (place) {
+            /* value 不是空值或 value 是空而且不忽略空值 */
+            return (isEmpty() && !ignoreEmpty || !isEmpty());
+        } else {
+            /* 明确指定了不作为查询条件 */
+            return false;
+        }
+    }
+
+    public void setPlace(boolean place) {
+        this.place = place;
+    }
+
+    public boolean isIgnoreEmpty() {
+        return ignoreEmpty;
+    }
+
+    public void setIgnoreEmpty(boolean ignoreEmpty) {
+        this.ignoreEmpty = ignoreEmpty;
+    }
+
+    public boolean isCreateAlias() {
+        return createAlias;
+    }
+
+    public void setCreateAlias(boolean createAlias) {
+        this.createAlias = createAlias;
+    }
+
+//    public Condition[] getCompositeConditions() {
+//        return compositeConditions;
+//    }
+//
+//    public void setCompositeConditions(Condition[] compositeConditions) {
+//        this.compositeConditions = compositeConditions;
+//    }
+
+    private boolean isEmpty() {
+        if (value == null) {
+            return true;
+        } else if (value instanceof String) {
+            String str = (String) value;
+            return StringUtils.isBlank(str);
+        } else {
+            return false;
+        }
+    }
 
     @Override
     public int compareTo(Condition o) {
-        return 0;
+        if (o == null) {
+            throw new NullPointerException("比较Condition顺序时,参数是null");
+        }
+        int ret = 0;
+        if (this.equals(o)) {
+            ret = 0;
+        } else {
+            ret = this.order - o.order;
+            /* 这里忽略了 ret == 0 的情况, 因为在 ret == 0 时, 与 equals 方法不一致 */
+            ret = (ret > 0) ? 1 : -1;
+        }
+        return ret;
     }
 }

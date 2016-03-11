@@ -1,0 +1,33 @@
+package org.silencer.doorche.support;
+
+import org.silencer.doorche.context.Condition;
+import org.silencer.doorche.context.Paginator;
+
+import java.util.Map;
+
+/**
+ * 条件上下文表现层model
+ *
+ * @author gejb
+ * @since 2016/3/11
+ */
+public class ConditionsModel {
+    private Map<String, Condition> conditions;
+    private Paginator paginator;
+
+    public Map<String, Condition> getConditions() {
+        return conditions;
+    }
+
+    public void setConditions(Map<String, Condition> conditions) {
+        this.conditions = conditions;
+    }
+
+    public Paginator getPaginator() {
+        return paginator;
+    }
+
+    public void setPaginator(Paginator paginator) {
+        this.paginator = paginator;
+    }
+}

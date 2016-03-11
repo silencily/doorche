@@ -6,9 +6,9 @@ import java.io.Serializable;
  * @author gejb
  * @since 2016/3/10
  */
-public class Paginater implements Serializable {
+public class Paginator implements Serializable {
     /** 当不需要分页时返回这个实例 */
-    public static final Paginater NOT_PAGINATED = new Paginater() {
+    public static final Paginator NOT_PAGINATED = new Paginator() {
         public String toString() {
             return "not paginated";
         }
