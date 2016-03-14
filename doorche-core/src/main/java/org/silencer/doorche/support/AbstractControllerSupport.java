@@ -29,7 +29,7 @@ public abstract class AbstractControllerSupport {
     /**
      * 条件模型属性名称
      */
-    public static final String MODEL_ATTRIBUTE_CONDITIONS = "conditions";
+    public static final String MODEL_ATTRIBUTE_NAME_CONDITIONS = "conditions";
 
     /**
      * 条件上下文管理器
@@ -81,7 +81,7 @@ public abstract class AbstractControllerSupport {
         conditionContextManager.setConditionContext(conditionContext);
 
         //保存条件模型
-        model.addAttribute(MODEL_ATTRIBUTE_CONDITIONS, conditions);
+        model.addAttribute(MODEL_ATTRIBUTE_NAME_CONDITIONS, conditions);
     }
 
 }

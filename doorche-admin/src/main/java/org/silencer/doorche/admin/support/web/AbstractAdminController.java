@@ -14,9 +14,9 @@ import java.util.List;
  */
 public abstract class AbstractAdminController extends AbstractControllerSupport {
 
-    private final static String MODEL_ATTRIBUTE_NAME_CURRENTUSER = "currentUser";
+    public final static String MODEL_ATTRIBUTE_NAME_CURRENTUSER = "currentUser";
 
-    private final static String MODEL_ATTRIBUTE_NAME_CURRENTMENUS = "menus";
+    public final static String MODEL_ATTRIBUTE_NAME_CURRENTMENUS = "menus";
 
     /**
      * 获取当前用户信息
