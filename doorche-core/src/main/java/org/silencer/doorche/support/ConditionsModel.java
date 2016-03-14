@@ -3,6 +3,7 @@ package org.silencer.doorche.support;
 import org.silencer.doorche.context.Condition;
 import org.silencer.doorche.context.Paginator;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -12,8 +13,8 @@ import java.util.Map;
  * @since 2016/3/11
  */
 public class ConditionsModel {
-    private Map<String, Condition> conditions;
-    private Paginator paginator;
+    private Map<String, Condition> conditions = new LinkedHashMap<String, Condition>(30);
+    private Paginator paginator = new Paginator();
 
     public Map<String, Condition> getConditions() {
         return conditions;

@@ -23,6 +23,11 @@ public class ConditionContext {
      */
     private boolean empty = true;
 
+    public void setConditions(Condition[] conditions) {
+        this.conditions = conditions;
+        empty = false;
+    }
+
     /**
      * 添加查询条件
      *
