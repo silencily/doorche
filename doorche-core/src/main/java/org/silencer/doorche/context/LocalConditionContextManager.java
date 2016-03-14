@@ -26,5 +26,21 @@ public class LocalConditionContextManager implements ConditionContextManager {
         conditionContext.set(context);
     }
 
+    @Override
+    public boolean isConcealQuery() {
+        return getConditionContext().isConcealQuery();
+    }
+
+    @Override
+    public void concealQuery() {
+        getConditionContext().setConcealQuery(true);
+
+    }
+
+    @Override
+    public void recoverQuery() {
+        getConditionContext().setConcealQuery(false);
+    }
+
 
 }

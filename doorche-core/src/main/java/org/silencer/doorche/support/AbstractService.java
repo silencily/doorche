@@ -13,6 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class AbstractService {
     protected final Log logger = LogFactory.getLog(getClass());
     @Autowired
-    protected HibernateTemplate hibernateTemplate;
+    private HibernateTemplate hibernateTemplate;
+
+    /**
+     * 获取hibernate数据处理对象
+     *
+     * @return hibernateTemplate
+     */
+    public HibernateTemplate getHibernateTemplate() {
+        return hibernateTemplate;
+    }
 
 }

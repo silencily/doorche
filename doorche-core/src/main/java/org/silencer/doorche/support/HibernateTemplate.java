@@ -4,6 +4,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.silencer.doorche.context.ConditionContextManager;
+import org.silencer.doorche.context.Paginator;
 import org.silencer.doorche.entity.AbstractEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,8 @@ import java.util.List;
 public class HibernateTemplate {
     @Autowired
     private SessionFactory sessionFactory;
+    @Autowired
+    private ConditionContextManager conditionContextManager;
 
     /**
      * 根据查询条件进行查询结果集
@@ -30,6 +34,11 @@ public class HibernateTemplate {
     public List findByCriteria(DetachedCriteria dc) {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = dc.getExecutableCriteria(session);
+
+        //处理分页
+        Paginator paginator = null;
+
+
 
         return criteria.list();
 
