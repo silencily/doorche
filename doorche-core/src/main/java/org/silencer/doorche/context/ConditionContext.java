@@ -10,7 +10,7 @@ public class ConditionContext {
 
     private Condition[] conditions = new Condition[0];
 
-    private Paginator paginator;
+    private Paginator paginator = Paginator.NOT_PAGINATED;
 
     /**
      * 是否在当前执行环境下禁止应用检索条件, 常用于在持久化层检索多个业务实体时避免一个业务实体
@@ -41,6 +41,13 @@ public class ConditionContext {
             this.conditions = newConditions;
             empty = false;
         }
+    }
+
+    public Condition[] getConditions() {
+        if (conditions == null) {
+            conditions = new Condition[0];
+        }
+        return conditions;
     }
 
     public Paginator getPaginator() {

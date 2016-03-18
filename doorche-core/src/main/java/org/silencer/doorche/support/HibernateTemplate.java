@@ -4,12 +4,15 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.silencer.doorche.context.Condition;
+import org.silencer.doorche.context.ConditionContext;
 import org.silencer.doorche.context.ConditionContextManager;
 import org.silencer.doorche.context.Paginator;
 import org.silencer.doorche.entity.AbstractEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,12 +38,53 @@ public class HibernateTemplate {
         Session session = sessionFactory.getCurrentSession();
         Criteria criteria = dc.getExecutableCriteria(session);
 
-        //处理分页
         Paginator paginator = null;
+        int firstResult = 0;
+        int maxResults = 0;
 
+        //处理查询条件
+        if (!conditionContextManager.isConcealQuery()) {
+
+
+        }
 
 
         return criteria.list();
+
+    }
+
+    /**
+     * @param detachedCriteria
+     */
+    private void rebuildCriteria(DetachedCriteria detachedCriteria) {
+        ConditionContext conditionContext = conditionContextManager.getConditionContext();
+        Condition[] conditions = conditionContext.getConditions();
+
+        // 记录构造查询条件中的所有 alias
+        List aliasList = new ArrayList();
+
+        for (int i = 0; i < conditions.length; i++) {
+            Condition condition = conditions[i];
+            if (!condition.isPlace()) {
+                continue;
+            }
+            String name = condition.getName();
+            String operator = condition.getOperator();
+            if (operator == null) {
+                operator = Condition.EQUAL;
+            }
+            Object value = condition.getValue();
+            if (String.class.isInstance(value)) {
+                value = ((String) value).trim();
+            }
+            if (Condition.LIKE.equals(operator)) {
+                value = "%" + value + "%";
+            }
+            operator = " " + operator + " ";
+
+
+        }
+
 
     }
 

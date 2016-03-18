@@ -15,10 +15,12 @@ public class LocalConditionContextManager implements ConditionContextManager {
 
     @Override
     public ConditionContext getConditionContext() {
-        if (conditionContext.get() == null) {
-            return null;
+        ConditionContext cc = conditionContext.get();
+        if (cc == null) {
+            cc = new ConditionContext();
+            conditionContext.set(cc);
         }
-        return conditionContext.get();
+        return cc;
     }
 
     @Override
