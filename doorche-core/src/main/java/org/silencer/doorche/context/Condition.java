@@ -108,7 +108,7 @@ public class Condition implements Serializable, Comparable<Condition> {
     /**
      * 如果存在多个属性时这个属性与前一个的关系, 这些属性的第一个不解释这个值
      */
-    private String prepend;
+    //private String prepend;
 
     /**
      * 如果存在多个条件, 这个属性决定了组成条件表达式时各个条件的顺序
@@ -177,13 +177,13 @@ public class Condition implements Serializable, Comparable<Condition> {
         this.type = type;
     }
 
-    public String getPrepend() {
-        return prepend;
-    }
-
-    public void setPrepend(String prepend) {
-        this.prepend = prepend;
-    }
+//    public String getPrepend() {
+//        return prepend;
+//    }
+//
+//    public void setPrepend(String prepend) {
+//        this.prepend = prepend;
+//    }
 
     public int getOrder() {
         return order;
@@ -263,5 +263,42 @@ public class Condition implements Serializable, Comparable<Condition> {
             ret = (ret > 0) ? 1 : -1;
         }
         return ret;
+    }
+
+    /**
+     * 判断操作类型
+     *
+     * @return 操作类型
+     */
+    public Operator determineOperator() {
+        Operator operator1 = Operator.EQUAL;
+        if (NOT_EQUAL.equals(this.operator)) {
+            operator1 = Operator.NOT_EQUAL;
+        }
+        if (GREATER_EQUAL.equals(this.operator)) {
+            operator1 = Operator.GREATER_EQUAL;
+        }
+        if (GREATER.equals(this.operator)) {
+            operator1 = Operator.GREATER;
+        }
+        if (LESS_EQUAL.equals(this.operator)) {
+            operator1 = Operator.LESS_EQUAL;
+        }
+        if (LESS.equals(this.operator)) {
+            operator1 = Operator.LESS;
+        }
+        if (LIKE.equals(this.operator)) {
+            operator1 = Operator.LIKE;
+        }
+        return operator1;
+
+    }
+
+
+    /**
+     * 条件操作符号
+     */
+    public enum Operator {
+        EQUAL, NOT_EQUAL, GREATER_EQUAL, GREATER, LESS_EQUAL, LESS, LIKE
     }
 }
