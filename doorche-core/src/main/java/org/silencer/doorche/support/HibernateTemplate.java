@@ -46,7 +46,16 @@ public class HibernateTemplate {
 
         //处理查询条件
         if (!conditionContextManager.isConcealQuery()) {
+            rebuildCriteria(dc);//重新构建查询
 
+            paginator = conditionContextManager.getConditionContext().getPaginator();
+            firstResult = paginator.getPage() * paginator.getPageSize();
+            maxResults = paginator.getPageSize();
+
+            conditionContextManager.concealQuery();//重新构建查询后需要屏蔽自动查询条件
+        }
+
+        if (Paginator.NOT_PAGINATED != paginator) {
 
         }
 
