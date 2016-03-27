@@ -25,64 +25,34 @@
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
                         <tr>
-                            <th>Rendering engine</th>
-                            <th>Browser</th>
-                            <th>Platform(s)</th>
-                            <th>Engine version</th>
-                            <th>CSS grade</th>
+                            <th>用户名</th>
+                            <th>登录名</th>
+                            <th>用户编号</th>
+                            <th>邮箱</th>
+                            <th>手机号</th>
+                            <th>状态</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                                Explorer 4.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td> 4</td>
-                            <td>X</td>
-                        </tr>
-                        <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                                Explorer 5.0
-                            </td>
-                            <td>Win 95+</td>
-                            <td>5</td>
-                            <td>C</td>
-                        </tr>
-                        <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                                Explorer 5.5
-                            </td>
-                            <td>Win 95+</td>
-                            <td>5.5</td>
-                            <td>A</td>
-                        </tr>
-                        <tr>
-                            <td>Trident</td>
-                            <td>Internet
-                                Explorer 6
-                            </td>
-                            <td>Win 98+</td>
-                            <td>6</td>
-                            <td>A</td>
-                        </tr>
-                        <tr>
-                            <td>Trident</td>
-                            <td>Internet Explorer 7</td>
-                            <td>Win XP SP2+</td>
-                            <td>7</td>
-                            <td>A</td>
-                        </tr>
+                        <c:forEach var="user" items="${list}">
+                            <tr>
+                                <td>${user.name}</td>
+                                <td>${user.loginName}</td>
+                                <td>${user.no}</td>
+                                <td>${user.email}</td>
+                                <td>${user.mobile}</td>
+                                <td>${user.isDisable}</td>
+                                <td><a href="#">修改</a></td>
+                            </tr>
+                        </c:forEach>
                         </tbody>
                     </table>
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
                     <div class="col-sm-5 no-padding">
-                        <div style="padding-top: 8px;">总数：33</div>
+                        <div style="padding-top: 8px;">总数：${conditions.paginator.count}</div>
                     </div>
                     <div class="col-sm-7 no-padding">
                         <ul class="pagination no-margin pull-right">

@@ -71,10 +71,11 @@ public class HibernateTemplate {
             // get the original projection
             Projection projection = getProjection(criteria);
 
-            Integer iCount = (Integer) criteria.setProjection(Projections.rowCount()).uniqueResult();
-            if (iCount == null) {
+            Object objCount = criteria.setProjection(Projections.rowCount()).uniqueResult();
+            if (objCount == null) {
                 throw new RuntimeException("无法执行 count 统计, 请检查hibernate相应的配置");
             }
+            Integer iCount = Integer.parseInt(objCount.toString());
             paginator.setCount(iCount);
 
             criteria.setProjection(projection);
@@ -281,12 +282,6 @@ public class HibernateTemplate {
             logger.error(message, e);
             throw new RuntimeException(message, e);
         }
-    }
-
-
-    public <T> List<T> findByClass(Class<T> clazz) {
-        DetachedCriteria dc = DetachedCriteria.forClass(clazz);
-        return (List<T>) findByCriteria(dc);
     }
 
 
