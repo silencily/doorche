@@ -1,10 +1,12 @@
 package org.silencer.doorche.support;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
+import org.hibernate.internal.CriteriaImpl;
 import org.silencer.doorche.context.Condition;
 import org.silencer.doorche.context.ConditionContext;
 import org.silencer.doorche.context.ConditionContextManager;
@@ -12,7 +14,9 @@ import org.silencer.doorche.context.Paginator;
 import org.silencer.doorche.entity.AbstractEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -25,6 +29,10 @@ import java.util.StringTokenizer;
  */
 @Component
 public class HibernateTemplate {
+    private static final Log logger = LogFactory.getLog(HibernateTemplate.class);
+
+    private static final String CRITERIA_ASSERT_ERROR_MESSAGE = " 's type is not " + CriteriaImpl.class + ", please make sure you are using Hibernate-4.1.6.Final!!! ";
+
     @Autowired
     private SessionFactory sessionFactory;
     @Autowired
@@ -55,11 +63,43 @@ public class HibernateTemplate {
             conditionContextManager.concealQuery();//重新构建查询后需要屏蔽自动查询条件
         }
 
-        if (Paginator.NOT_PAGINATED != paginator) {
+        if (paginator != null && Paginator.NOT_PAGINATED != paginator) {
+            // Get the orginal orderEntries
+            CriteriaImpl.OrderEntry[] orderEntries = getOrders(criteria);
+            // Remove the orders
+            criteria = removeOrders(criteria);
+            // get the original projection
+            Projection projection = getProjection(criteria);
 
+            Integer iCount = (Integer) criteria.setProjection(Projections.rowCount()).uniqueResult();
+            if (iCount == null) {
+                throw new RuntimeException("无法执行 count 统计, 请检查hibernate相应的配置");
+            }
+            paginator.setCount(iCount);
+
+            criteria.setProjection(projection);
+            if (projection == null) {
+                // Set the ResultTransformer to get the same object structure with hql
+                criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
+            }
+            // Add the orginal orderEntries
+            criteria = addOrders(criteria, orderEntries);
+            // 追加排序项目id(如果不进行排序,翻页处理无法正常显示)
+            Order order = Order.asc("id");//new Order("id", true);
+            criteria.addOrder(order);
+            // 修正查询后查询结果不在第一页无法显示的问题, 自动定向到第一页
+            if (firstResult >= iCount) {
+                firstResult = 0;
+                paginator.setPage(0);
+            }
+
+            if (firstResult >= 0) {
+                criteria.setFirstResult(firstResult);
+            }
+            if (maxResults > 0) {
+                criteria.setMaxResults(maxResults);
+            }
         }
-
-
         return criteria.list();
 
     }
@@ -143,6 +183,106 @@ public class HibernateTemplate {
 
         return detachedCriteria;
     }
+
+    /**
+     * 从 criteria 中取得 {@link org.hibernate.criterion.Projection}, 接口中没有公开此方法, 因此从 {@link CriteriaImpl} 中取得
+     *
+     * @param criteria the criteria
+     * @return the Projection
+     * @see CriteriaImpl#getProjection()
+     */
+    private Projection getProjection(Criteria criteria) {
+        assertType(criteria);
+        CriteriaImpl impl = (CriteriaImpl) criteria;
+        return impl.getProjection();
+    }
+
+    private void assertType(Criteria criteria) {
+        Assert.notNull(criteria, " criteria is required. ");
+        String message = criteria + CRITERIA_ASSERT_ERROR_MESSAGE;
+        if (!CriteriaImpl.class.isInstance(criteria)) {
+            logger.error(message);
+            throw new RuntimeException(message);
+        }
+    }
+
+    /**
+     * 得到 criteria 中的 OrderEntry[]
+     *
+     * @param criteria the criteria
+     * @return the OrderEntry[]
+     */
+    private CriteriaImpl.OrderEntry[] getOrders(Criteria criteria) {
+        assertType(criteria);
+        CriteriaImpl impl = (CriteriaImpl) criteria;
+        Field field = getOrderEntriesField(criteria);
+        try {
+            return (CriteriaImpl.OrderEntry[]) ((List) field.get(impl)).toArray(new CriteriaImpl.OrderEntry[0]);
+        } catch (Exception e) {
+            String message = criteria + CRITERIA_ASSERT_ERROR_MESSAGE;
+            logger.error(message, e);
+            throw new RuntimeException(message, e);
+        }
+    }
+
+    /**
+     * 移除 criteria 中的 OrderEntry[]
+     *
+     * @param criteria the criteria
+     * @return the criteria after removed OrderEntry[]
+     */
+    private Criteria removeOrders(Criteria criteria) {
+        assertType(criteria);
+        CriteriaImpl impl = (CriteriaImpl) criteria;
+
+        try {
+            Field field = getOrderEntriesField(criteria);
+            field.set(impl, new ArrayList());
+            return impl;
+        } catch (Exception e) {
+            String message = criteria + CRITERIA_ASSERT_ERROR_MESSAGE;
+            logger.error(message, e);
+            throw new RuntimeException(message, e);
+        }
+    }
+
+    /**
+     * 为 criteria 增加 OrderEntry[]
+     *
+     * @param criteria     the criteria
+     * @param orderEntries the OrderEntry[]
+     * @return the criteria after add OrderEntry[]
+     */
+    private Criteria addOrders(Criteria criteria, CriteriaImpl.OrderEntry[] orderEntries) {
+        assertType(criteria);
+        CriteriaImpl impl = (CriteriaImpl) criteria;
+        try {
+            Field field = getOrderEntriesField(criteria);
+            for (int i = 0; i < orderEntries.length; i++) {
+                List innerOrderEntries = (List) field.get(criteria);
+                innerOrderEntries.add(orderEntries[i]);
+            }
+            return impl;
+        } catch (Exception e) {
+            String message = criteria + CRITERIA_ASSERT_ERROR_MESSAGE;
+            logger.error(message, e);
+            throw new RuntimeException(message, e);
+        }
+    }
+
+    private Field getOrderEntriesField(Criteria criteria) {
+        assertType(criteria);
+        try {
+            Field field = CriteriaImpl.class.getDeclaredField("orderEntries");
+            field.setAccessible(true);
+            return field;
+        } catch (Exception e) {
+            String message = criteria + CRITERIA_ASSERT_ERROR_MESSAGE;
+            logger.error(message, e);
+            throw new RuntimeException(message, e);
+        }
+    }
+
 
     public <T> List<T> findByClass(Class<T> clazz) {
         DetachedCriteria dc = DetachedCriteria.forClass(clazz);
