@@ -51,19 +51,7 @@
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <div class="col-sm-5 no-padding">
-                        <div style="padding-top: 8px;">总数：${conditions.paginator.count}</div>
-                    </div>
-                    <div class="col-sm-7 no-padding">
-                        <ul class="pagination no-margin pull-right">
-                            <li><a href="#">上一页</a></li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">下一页</a></li>
-                        </ul>
-                    </div>
-
+                    <%@include file="/WEB-INF/include/paginater.jspf" %>
                 </div>
             </div>
         </div>
