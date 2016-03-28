@@ -15,7 +15,7 @@ public class Paginator implements Serializable {
             return "not paginated";
         }
     };
-    public static final int DEFAULT_PAGE_SIZE = 14;
+    public static final int DEFAULT_PAGE_SIZE = 2;
 
     /**
      * 每页行数, 通常在页面中可以修改这个参数

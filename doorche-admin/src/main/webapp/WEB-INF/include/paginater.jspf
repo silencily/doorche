@@ -4,16 +4,65 @@
         <%-- 不分页 --%>
     </c:when>
     <c:otherwise>
+        <c:set var="PAGE_VIEW_SIZE" value="3"/><%-- 分页页数显示长度 --%>
+        <c:set var="PAGE_VIEW_SLIDER_SIZE" value="1"/><%-- 前后显示分页页数长度 --%>
+
+
         <div class="col-sm-5 no-padding">
             <div style="padding-top: 8px;">共 ${conditions.paginator.count} 条记录</div>
         </div>
         <div class="col-sm-7 no-padding">
             <ul class="pagination no-margin pull-right">
-                <li><a href="#">上一页</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">下一页</a></li>
+                <c:if test="${conditions.paginator.previousPageAvailable}">
+                    <li><a href="#">上一页</a></li>
+                </c:if>
+                <c:if test="${not conditions.paginator.previousPageAvailable}">
+                    <li class="disabled"><a href="#">上一页</a></li>
+                </c:if>
+
+                <c:set var="begin" value="${conditions.paginator.page+1-(PAGE_VIEW_SIZE/2)}"/>
+                <c:set var="begin" value="${begin<1?1:begin}"/>
+                <c:set var="end" value="${begin+PAGE_VIEW_SIZE-1}"/>
+                <c:if test="${end>=conditions.paginator.pageCount}">
+                    <c:set var="end" value="${conditions.paginator.pageCount}"/>
+                    <c:set var="begin" value="${end - PAGE_VIEW_SIZE + 1}"/>
+                    <c:set var="begin" value="${begin<1?1:begin}"/>
+                </c:if>
+                <c:if test="${begin>1}">
+                    <c:set var="i" value="0"/>
+                    <c:set var="j" value="${begin>=2?2:begin}"/>
+                    <c:forEach var="k" begin="1" end="${j}" step="1">
+                        <li><a href="#">${k}</a></li>
+                        <c:set var="i" value="${k}"/>
+                    </c:forEach>
+                    <c:if test="${i+1<begin}">
+                        <li class="disabled"><a href="javascript:void(0);">...</a></li>
+                    </c:if>
+                </c:if>
+
+                <c:out value="${begin}"/>
+
+                <c:forEach var="l" begin="${begin}" end="${end}" step="1">
+                    <c:if test="${l==conditions.paginator.page+1}">
+                        <li class="active"><a href="#">${l}</a></li>
+                    </c:if>
+                    <c:if test="${l!=conditions.paginator.page+1}">
+                        <li><a href="#">${l}</a></li>
+                    </c:if>
+                </c:forEach>
+                <c:if test="${conditions.paginator.pageCount-end>PAGE_VIEW_SLIDER_SIZE}">
+                    <li class="disabled"><a href="javascript:void(0);">...</a></li>
+                    <c:set var="end" value="${conditions.paginator.pageCount-1}"/>
+                </c:if>
+                <c:forEach var="m" begin="${end+1}" end="${conditions.paginator.pageCount}" step="1">
+                    <li><a href="#">${m}</a></li>
+                </c:forEach>
+                <c:if test="${conditions.paginator.nextPageAvailable}">
+                    <li><a href="#">下一页</a></li>
+                </c:if>
+                <c:if test="${not conditions.paginator.nextPageAvailable}">
+                    <li class="disabled"><a href="#">下一页</a></li>
+                </c:if>
             </ul>
         </div>
     </c:otherwise>
