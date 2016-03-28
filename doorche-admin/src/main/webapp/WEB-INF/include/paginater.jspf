@@ -19,8 +19,8 @@
                 <c:if test="${not conditions.paginator.previousPageAvailable}">
                     <li class="disabled"><a href="#">上一页</a></li>
                 </c:if>
-
-                <c:set var="begin" value="${conditions.paginator.page+1-(PAGE_VIEW_SIZE/2)}"/>
+                <c:set var="begin"
+                       value="${conditions.paginator.page+1-(PAGE_VIEW_SIZE%2>0?(PAGE_VIEW_SIZE-1)/2:PAGE_VIEW_SIZE/2)}"/>
                 <c:set var="begin" value="${begin<1?1:begin}"/>
                 <c:set var="end" value="${begin+PAGE_VIEW_SIZE-1}"/>
                 <c:if test="${end>=conditions.paginator.pageCount}">
@@ -31,7 +31,7 @@
                 <c:if test="${begin>1}">
                     <c:set var="i" value="0"/>
                     <c:set var="j" value="${begin>=2?2:begin}"/>
-                    <c:forEach var="k" begin="1" end="${j}" step="1">
+                    <c:forEach var="k" begin="1" end="${j-1}" step="1">
                         <li><a href="#">${k}</a></li>
                         <c:set var="i" value="${k}"/>
                     </c:forEach>
@@ -39,8 +39,6 @@
                         <li class="disabled"><a href="javascript:void(0);">...</a></li>
                     </c:if>
                 </c:if>
-
-                <c:out value="${begin}"/>
 
                 <c:forEach var="l" begin="${begin}" end="${end}" step="1">
                     <c:if test="${l==conditions.paginator.page+1}">
