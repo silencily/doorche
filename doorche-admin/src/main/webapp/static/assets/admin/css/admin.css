@@ -2490,6 +2490,7 @@ a:focus {
 .nav-tabs-custom > .nav-tabs > li.active:hover > a {
   background-color: #fff;
   color: #444;
+  cursor: pointer;
 }
 .nav-tabs-custom > .nav-tabs > li.active > a {
   border-top-color: transparent;

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,13 +40,14 @@ public abstract class AbstractControllerSupport {
 
     /**
      * 组装条件查询数据，并将其保存至条件上下文中供后期业务逻辑处理调用查询数据库<br>
-     * 同时将条件数据保存至模型中供页面回显
+     * 同时将条件数据保存至模型中供页面回显<br>
+     * 系统默认规定两层请求地址将自动设置分页需求，并设置<code>paginator.page=0</code>
      *
      * @param conditions form表单中查询条件
      * @param model      数据模型
      */
     @ModelAttribute
-    public void populateConditions(ConditionsModel conditions, Model model) {
+    public void populateConditions(ConditionsModel conditions, Model model, HttpServletRequest request) {
         Map<String, Condition> conditionMap = conditions.getConditions();
         List<Condition> lastConditions = new ArrayList<Condition>();
         ConditionContext conditionContext = new ConditionContext();
@@ -74,7 +76,13 @@ public abstract class AbstractControllerSupport {
 
         Paginator paginator = conditions.getPaginator();
         if (paginator.isNotPaginated()) {
-            paginator = Paginator.NOT_PAGINATED;
+            //判断是否为两层路径，若为两层则自动进行设置分页
+            String servletPath = request.getServletPath();
+            if (servletPath.matches("^/\\w+/\\w+/?$")) {
+                paginator.setPage(0);
+            } else {
+                paginator = Paginator.NOT_PAGINATED;
+            }
         }
         conditionContext.setPaginator(paginator);
 

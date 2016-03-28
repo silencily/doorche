@@ -115,7 +115,7 @@ desired effect
                                 class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu" data-name="${menu.name}">
                             <c:forEach items="${menu.children}" var="child">
-                                <li><a href="${child.href}" data-href="${child.href}" data-name="${child.name}">
+                                <li><a href="${ctx}${child.href}" data-href="${ctx}${child.href}" data-name="${child.name}">
                                     <i class="fa fa-circle-o"></i> ${child.name}</a></li>
                             </c:forEach>
                         </ul>
