@@ -11,11 +11,54 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a href="${ctx}/sm/user">列表</a></li>
-        <li><a href="#tab_2">添加用户</a></li>
+        <li><a href="${ctx}/sm/user/add">添加用户</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane active" id="tab_1">
+        <div class="tab-pane active">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">查询条件</h3>
+                </div>
+                <!-- /.box-header -->
+                <form class="form-horizontal" method="post" action="${ctx}/sm/user">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-1 control-label">用户名</label>
 
+                            <div class="col-sm-3">
+                                <input type="text" name="conditions['name'].value" class="form-control" id="name" placeholder="用户名" value="${conditions.conditions['name'].value}">
+                                <input type="hidden" name="conditions['name'].name" value="name">
+                                <input type="hidden" name="conditions['name'].operator" value="like">
+                                <input type="hidden" name="conditions['name'].createAlias" value="false">
+                            </div>
+                            <label for="no" class="col-sm-1 control-label">用户编号</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="no" placeholder="用户编号">
+                            </div>
+                            <label for="loginName" class="col-sm-1 control-label">登录名</label>
+
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="loginName" placeholder="登录名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-sm-1 control-label">邮箱</label>
+
+                            <div class="col-sm-3">
+                                <input type="email" class="form-control" id="email" placeholder="邮箱">
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer" style="text-align: center;">
+                        <button type="reset" class="btn btn-info">重 置</button>
+                        <button type="submit" class="btn btn-info">查 询</button>
+                    </div>
+                </form>
+            </div>
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">用户列表</h3>
@@ -54,16 +97,6 @@
                     <%@include file="/WEB-INF/include/paginater.jspf" %>
                 </div>
             </div>
-        </div>
-        <!-- /.tab-pane -->
-        <div class="tab-pane" id="tab_2">
-            The European languages are members of the same family. Their separate existence is a myth.
-            For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
-            in their grammar, their pronunciation and their most common words. Everyone realizes why a
-            new common language would be desirable: one could refuse to pay expensive translators. To
-            achieve this, it would be necessary to have uniform grammar, pronunciation and more common
-            words. If several languages coalesce, the grammar of the resulting language is more simple
-            and regular than that of the individual languages.
         </div>
         <!-- /.tab-pane -->
     </div>
