@@ -24,29 +24,25 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="name" class="col-sm-1 control-label">用户名</label>
-
                             <div class="col-sm-3">
-                                <input type="text" name="conditions['name'].value" class="form-control" id="name" placeholder="用户名" value="${conditions.conditions['name'].value}">
-                                <input type="hidden" name="conditions['name'].name" value="name">
-                                <input type="hidden" name="conditions['name'].operator" value="like">
-                                <input type="hidden" name="conditions['name'].createAlias" value="false">
+                                <search:text id="name" name="name" oper="like" type="java.lang.String" placeholder="用户名"/>
                             </div>
                             <label for="no" class="col-sm-1 control-label">用户编号</label>
 
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="no" placeholder="用户编号">
+                                <search:text id="no" name="no" oper="like" type="java.lang.String" placeholder="用户编号"/>
                             </div>
                             <label for="loginName" class="col-sm-1 control-label">登录名</label>
 
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="loginName" placeholder="登录名">
+                                <search:text id="loginName" name="loginName" oper="like" type="java.lang.String" placeholder="登录名"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-sm-1 control-label">邮箱</label>
 
                             <div class="col-sm-3">
-                                <input type="email" class="form-control" id="email" placeholder="邮箱">
+                                <search:text id="email" name="email" oper="like" type="java.lang.String" placeholder="邮箱"/>
                             </div>
                         </div>
 
