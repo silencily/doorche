@@ -18,6 +18,9 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">查询条件</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
                 </div>
                 <!-- /.box-header -->
                 <form class="form-horizontal" method="post" action="${ctx}/sm/user">
@@ -58,6 +61,9 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">用户列表</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
