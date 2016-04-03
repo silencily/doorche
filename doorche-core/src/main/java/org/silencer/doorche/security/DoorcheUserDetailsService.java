@@ -29,7 +29,9 @@ public class DoorcheUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails userDetails;
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TsmUser.class);
-        List<TsmUser> users = (List<TsmUser>) criteria.add(Restrictions.eq("loginName", username)).list();
+        criteria.add(Restrictions.eq("isDeleted", TsmUser.IS_FLAG_NO));
+        criteria.add(Restrictions.eq("loginName", username));
+        List<TsmUser> users = (List<TsmUser>) criteria.list();
         Set<DoorcheGrantedAuthority> authorities = new HashSet<DoorcheGrantedAuthority>();
         if (users.size() > 0) {
             TsmUser user = users.get(0);
