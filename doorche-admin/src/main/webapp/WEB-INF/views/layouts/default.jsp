@@ -115,8 +115,10 @@ desired effect
                                 class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu" data-name="${menu.name}">
                             <c:forEach items="${menu.children}" var="child">
-                                <li><a href="${ctx}${child.href}" data-href="${ctx}${child.href}" data-name="${child.name}">
-                                    <i class="fa fa-circle-o"></i> ${child.name}</a></li>
+                                <c:if test="${child.show}">
+                                    <li><a href="${ctx}${child.href}" data-href="${ctx}${child.href}" data-name="${child.name}">
+                                        <i class="fa fa-circle-o"></i> ${child.name}</a></li>
+                                </c:if>
                             </c:forEach>
                         </ul>
                     </li>

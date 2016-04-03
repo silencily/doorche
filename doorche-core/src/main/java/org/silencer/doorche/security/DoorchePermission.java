@@ -20,6 +20,7 @@ public class DoorchePermission implements Comparable<DoorchePermission> {
     private String href;
     private String icon;
     private String permission;
+    private boolean show;
     private List<DoorchePermission> children = new ArrayList<DoorchePermission>();
 
     private Set<Integer> childrenFlags = new HashSet<Integer>();//用于判断孩子节点是否已包含
@@ -78,6 +79,14 @@ public class DoorchePermission implements Comparable<DoorchePermission> {
 
     public void setPermission(String permission) {
         this.permission = permission;
+    }
+
+    public boolean isShow() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show = show;
     }
 
     public List<DoorchePermission> getChildren() {

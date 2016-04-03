@@ -42,9 +42,9 @@ public class DoorcheUserDetailsService implements UserDetailsService {
                     Map<Integer, DoorchePermission> doorchePermissionMap = new HashMap<Integer, DoorchePermission>();//菜单权限集合
                     Map<String, DoorchePermission> opratePermissionMap = new HashMap<String, DoorchePermission>();//操作权限集合
                     for (TsmPermission tsmPermission : tsmPermissions) {
-                        if (TsmPermission.IS_FLAG_NO.equals(tsmPermission.getIsShow())) {
-                            continue;
-                        }
+//                        if (TsmPermission.IS_FLAG_NO.equals(tsmPermission.getIsShow())) {
+//                            continue;
+//                        }
                         int type = Integer.parseInt(tsmPermission.getType());
                         DoorchePermission doorchePermission = new DoorchePermission();
                         doorchePermission.setId(tsmPermission.getId());
@@ -53,6 +53,7 @@ public class DoorcheUserDetailsService implements UserDetailsService {
                         doorchePermission.setIcon(tsmPermission.getIcon());
                         doorchePermission.setHref(tsmPermission.getHref());
                         doorchePermission.setPermission(tsmPermission.getPermission());
+                        doorchePermission.setShow(!TsmPermission.IS_FLAG_NO.equals(tsmPermission.getIsShow()));
                         switch (type) {
                             case TsmPermission.CATALOG_TYPE:
                                 if (!doorchePermissionMap.containsKey(tsmPermission.getId())) {
