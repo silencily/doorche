@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <!-- /.box-header -->
-                <form class="form-horizontal" method="post" action="${ctx}/sm/user">
+                <form id="searchForm" class="form-horizontal" method="post" action="${ctx}/sm/user">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="name" class="col-sm-1 control-label">用户名</label>
@@ -54,7 +54,7 @@
 
                     <div class="box-footer" style="text-align: center;">
                         <button type="reset" class="btn btn-info">重 置</button>
-                        <button type="submit" class="btn btn-info">查 询</button>
+                        <button type="button" onclick="CurrentPage.query();" class="btn btn-info">查 询</button>
                     </div>
                 </form>
             </div>
@@ -104,5 +104,13 @@
     </div>
     <!-- /.tab-content -->
 </div>
+<script type="text/javascript">
+    if(CurrentPage==null){
+        var CurrentPage = {};
+    }
+    CurrentPage.query = function(){
+        $.formUtils.post($("#searchForm"));
+    }
+</script>
 </body>
 </html>

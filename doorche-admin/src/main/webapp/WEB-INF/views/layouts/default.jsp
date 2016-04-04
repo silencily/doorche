@@ -116,7 +116,8 @@ desired effect
                         <ul class="treeview-menu" data-name="${menu.name}">
                             <c:forEach items="${menu.children}" var="child">
                                 <c:if test="${child.show}">
-                                    <li><a href="${ctx}${child.href}" data-href="${ctx}${child.href}" data-name="${child.name}">
+                                    <li><a href="${ctx}${child.href}" data-href="${ctx}${child.href}"
+                                           data-name="${child.name}">
                                         <i class="fa fa-circle-o"></i> ${child.name}</a></li>
                                 </c:if>
                             </c:forEach>
@@ -163,6 +164,15 @@ desired effect
     </footer>
 </div>
 <!-- ./wrapper -->
+<!-- 遮罩层 -->
+<div id="doorche-loading" class="loading-overlay hide">
+    <div class="spinner">
+        <div class="dot1"></div>
+        <div class="dot2"></div>
+    </div>
+</div>
+
+<!-- ./遮罩层 -->
 
 
 <script type="text/javascript">
