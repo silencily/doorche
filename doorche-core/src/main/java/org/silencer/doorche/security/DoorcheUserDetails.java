@@ -71,7 +71,7 @@ public class DoorcheUserDetails extends User {
         Map<Integer, DoorchePermission> menuPermissionMap = new HashMap<Integer, DoorchePermission>();
         for (DoorcheGrantedAuthority authority : authorities) {
             Map<String, DoorchePermission> operationPermission = authority.getOperationPermissions();
-            operationPermission.putAll(operationPermission);
+            operationPermissions.putAll(operationPermission);
             Map<Integer, DoorchePermission> menuPermission = authority.getMenuPermissions();
             for (Map.Entry<Integer, DoorchePermission> entry : menuPermission.entrySet()) {
                 Integer key = entry.getKey();
