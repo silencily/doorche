@@ -4,44 +4,107 @@
 <head>
     <title>Doorche-Admin | 权限列表</title>
     <meta name="decorator" content="default"/>
-
 </head>
 
 <body>
 
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#tab_1" data-toggle="tab">列表</a></li>
-        <li><a href="#tab_2" data-toggle="tab">添加权限</a></li>
+        <li class="active"><a href="${ctx}/sm/permission">列表</a></li>
+        <li><a href="${ctx}/sm/permission/add">添加权限</a></li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane active" id="tab_1">
-            <b>How to use:</b>
+        <div class="tab-pane active">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">查询条件</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <form id="searchForm" class="form-horizontal" method="post" action="${ctx}/sm/permission">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="name" class="col-sm-1 control-label">权限名称</label>
+                            <div class="col-sm-3">
+                                <search:text id="name" name="name" oper="like" type="java.lang.String" placeholder="权限名称"/>
+                            </div>
+                            <label for="type" class="col-sm-1 control-label">权限类型</label>
 
-            <p>Exactly like the original bootstrap tabs except you should use
-                the custom wrapper <code>.nav-tabs-custom</code> to achieve this style.</p>
-            A wonderful serenity has taken possession of my entire soul,
-            like these sweet mornings of spring which I enjoy with my whole heart.
-            I am alone, and feel the charm of existence in this spot,
-            which was created for the bliss of souls like mine. I am so happy,
-            my dear friend, so absorbed in the exquisite sense of mere tranquil existence,
-            that I neglect my talents. I should be incapable of drawing a single stroke
-            at the present moment; and yet I feel that I never was a greater artist than now.
-        </div>
-        <!-- /.tab-pane -->
-        <div class="tab-pane" id="tab_2">
-            The European languages are members of the same family. Their separate existence is a myth.
-            For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
-            in their grammar, their pronunciation and their most common words. Everyone realizes why a
-            new common language would be desirable: one could refuse to pay expensive translators. To
-            achieve this, it would be necessary to have uniform grammar, pronunciation and more common
-            words. If several languages coalesce, the grammar of the resulting language is more simple
-            and regular than that of the individual languages.
+                            <div class="col-sm-3">
+                                <search:text id="type" name="type" oper="=" type="java.lang.String" placeholder="权限类型"/>
+                            </div>
+                            <label for="permission" class="col-sm-1 control-label">权限标识</label>
+
+                            <div class="col-sm-3">
+                                <search:text id="permission" name="permission" oper="like" type="java.lang.String" placeholder="权限标识"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer" style="text-align: center;">
+                        <button type="reset" class="btn btn-info">重 置</button>
+                        <button type="button" onclick="CurrentPage.query();" class="btn btn-info">查 询</button>
+                    </div>
+                </form>
+            </div>
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">权限列表</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>权限名称</th>
+                            <th>权限类型</th>
+                            <th>排序</th>
+                            <th>链接</th>
+                            <th>图标</th>
+                            <th>标识</th>
+                            <th>是否显示</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="permission" items="${list}">
+                            <tr>
+                                <td>${permission.name}</td>
+                                <td>${permission.type}</td>
+                                <td>${permission.sort}</td>
+                                <td>${permission.href}</td>
+                                <td>${permission.icon}</td>
+                                <td>${permission.permission}</td>
+                                <td>${permission.isShow}</td>
+                                <td><a href="#">修改</a></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    <%@include file="/WEB-INF/include/paginater.jspf" %>
+                </div>
+            </div>
         </div>
         <!-- /.tab-pane -->
     </div>
     <!-- /.tab-content -->
 </div>
-
+<script type="text/javascript">
+    if(CurrentPage==null){
+        var CurrentPage = {};
+    }
+    CurrentPage.query = function(){
+        $.formUtils.post($("#searchForm"));
+    }
+</script>
 </body>
 </html>
