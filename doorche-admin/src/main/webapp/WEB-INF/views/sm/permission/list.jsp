@@ -85,12 +85,12 @@
                             <tr data-tt-id="${permission.id}"
                                 data-tt-parent-id="${empty permission.parent.id?'0':permission.parent.id}">
                                 <td>${permission.name}</td>
-                                <td>${permission.type}</td>
+                                <td>${fns:getDictValue('PERMISSION_TYPE',permission.type)}</td>
                                 <td>${permission.sort}</td>
                                 <td>${permission.href}</td>
                                 <td>${permission.icon}</td>
                                 <td>${permission.permission}</td>
-                                <td>${permission.isShow}</td>
+                                <td>${fns:getDictValue('PERMISSION_ISSHOW',permission.isShow)}</td>
                                 <td><a href="#">修改</a></td>
                             </tr>
                         </c:forEach>

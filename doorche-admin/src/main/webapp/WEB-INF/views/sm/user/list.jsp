@@ -87,7 +87,7 @@
                                 <td>${user.no}</td>
                                 <td>${user.email}</td>
                                 <td>${user.mobile}</td>
-                                <td>${user.isDisable}</td>
+                                <td>${fns:getDictValue('USER_ISDISABLE',user.isDisable)}</td>
                                 <td><a href="#">修改</a></td>
                             </tr>
                         </c:forEach>

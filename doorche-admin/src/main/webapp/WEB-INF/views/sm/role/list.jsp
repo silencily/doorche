@@ -18,8 +18,10 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">查询条件</h3>
+
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i></button>
                     </div>
                 </div>
                 <!-- /.box-header -->
@@ -27,13 +29,16 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="name" class="col-sm-1 control-label">角色名</label>
+
                             <div class="col-sm-3">
-                                <search:text id="name" name="name" oper="like" type="java.lang.String" placeholder="角色名"/>
+                                <search:text id="name" name="name" oper="like" type="java.lang.String"
+                                             placeholder="角色名"/>
                             </div>
                             <label for="code" class="col-sm-1 control-label">角色编码</label>
 
                             <div class="col-sm-3">
-                                <search:text id="code" name="code" oper="like" type="java.lang.String" placeholder="角色编码"/>
+                                <search:text id="code" name="code" oper="like" type="java.lang.String"
+                                             placeholder="角色编码"/>
                             </div>
                         </div>
                     </div>
@@ -48,8 +53,10 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">角色列表</h3>
+
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i></button>
                     </div>
                 </div>
                 <!-- /.box-header -->
@@ -69,8 +76,8 @@
                             <tr>
                                 <td>${role.name}</td>
                                 <td>${role.code}</td>
-                                <td>${role.dataScope}</td>
-                                <td>${role.isDisable}</td>
+                                <td>${fns:getDictValue('ROLE_DATASCOPE',role.dataScope)}</td>
+                                <td>${fns:getDictValue('ROLE_ISDISABLE',role.isDisable)}</td>
                                 <td><a href="#">修改</a></td>
                             </tr>
                         </c:forEach>
@@ -88,10 +95,10 @@
     <!-- /.tab-content -->
 </div>
 <script type="text/javascript">
-    if(CurrentPage==null){
+    if (CurrentPage == null) {
         var CurrentPage = {};
     }
-    CurrentPage.query = function(){
+    CurrentPage.query = function () {
         $.formUtils.post($("#searchForm"));
     }
 </script>
