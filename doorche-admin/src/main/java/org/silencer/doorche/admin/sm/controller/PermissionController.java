@@ -23,7 +23,8 @@ public class PermissionController extends AbstractAdminController {
 
     @RequestMapping
     public String list(Model model) {
-        List<TsmPermission> list = permissionService.list(TsmPermission.class);
+        concealPaginate();//树形列表，不需要进行分页
+        List<TsmPermission> list = permissionService.list();
         model.addAttribute("list", list);
         return "sm/permission/list";
     }

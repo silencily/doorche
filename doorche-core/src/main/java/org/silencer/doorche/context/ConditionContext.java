@@ -90,4 +90,11 @@ public class ConditionContext {
     public void setConcealQuery(boolean concealQuery) {
         this.concealQuery = concealQuery;
     }
+
+    /**
+     * 屏蔽分页
+     */
+    public void concealPaginate() {
+        getPaginator().resetNotPaginated();
+    }
 }

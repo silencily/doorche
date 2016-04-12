@@ -35,10 +35,20 @@ public abstract class AbstractService implements IService {
 
     @Override
     public <T extends AbstractEntity> List<T> list(Class<T> clazz) {
-        conditionContextManager.recoverQuery();//恢复系统自动处理查询条件
-
         DetachedCriteria dc = DetachedCriteria.forClass(clazz);
         dc.add(Restrictions.eq("isDeleted", "0"));//默认过滤物理删除的记录
+        return list(dc);
+    }
+
+    /**
+     * 查询，默认待分页
+     *
+     * @param dc
+     * @param <T>
+     * @return
+     */
+    protected <T extends AbstractEntity> List<T> list(DetachedCriteria dc) {
+        conditionContextManager.recoverQuery();//恢复系统自动处理查询条件
         return (List<T>) hibernateTemplate.findByCriteria(dc);
     }
 }

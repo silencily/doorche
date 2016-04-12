@@ -43,4 +43,5 @@ public interface ConditionContextManager {
      * 查询时仍要应用这个条件. 如果当前执行线程没有条件信息就什么也不做
      */
     public void recoverQuery();
+
 }

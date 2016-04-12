@@ -63,7 +63,7 @@ public class HibernateTemplate {
             conditionContextManager.concealQuery();//重新构建查询后需要屏蔽自动查询条件
         }
 
-        if (paginator != null && Paginator.NOT_PAGINATED != paginator) {
+        if (paginator != null && !paginator.isNotPaginated()) {
             // Get the orginal orderEntries
             CriteriaImpl.OrderEntry[] orderEntries = getOrders(criteria);
             // Remove the orders

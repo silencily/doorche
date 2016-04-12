@@ -44,5 +44,4 @@ public class LocalConditionContextManager implements ConditionContextManager {
         getConditionContext().setConcealQuery(false);
     }
 
-
 }

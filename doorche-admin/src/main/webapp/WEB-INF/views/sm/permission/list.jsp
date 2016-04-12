@@ -4,6 +4,7 @@
 <head>
     <title>Doorche-Admin | 权限列表</title>
     <meta name="decorator" content="default"/>
+    <%@include file="/WEB-INF/include/treetable.jspf" %>
 </head>
 
 <body>
@@ -18,8 +19,10 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">查询条件</h3>
+
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i></button>
                     </div>
                 </div>
                 <!-- /.box-header -->
@@ -27,8 +30,10 @@
                     <div class="box-body">
                         <div class="form-group">
                             <label for="name" class="col-sm-1 control-label">权限名称</label>
+
                             <div class="col-sm-3">
-                                <search:text id="name" name="name" oper="like" type="java.lang.String" placeholder="权限名称"/>
+                                <search:text id="name" name="name" oper="like" type="java.lang.String"
+                                             placeholder="权限名称"/>
                             </div>
                             <label for="type" class="col-sm-1 control-label">权限类型</label>
 
@@ -38,7 +43,8 @@
                             <label for="permission" class="col-sm-1 control-label">权限标识</label>
 
                             <div class="col-sm-3">
-                                <search:text id="permission" name="permission" oper="like" type="java.lang.String" placeholder="权限标识"/>
+                                <search:text id="permission" name="permission" oper="like" type="java.lang.String"
+                                             placeholder="权限标识"/>
                             </div>
                         </div>
                     </div>
@@ -53,13 +59,15 @@
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">权限列表</h3>
+
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                class="fa fa-minus"></i></button>
                     </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
-                    <table class="table table-bordered table-striped table-hover">
+                    <table id="treetable" class="treetable table table-bordered table-striped table-hover">
                         <thead>
                         <tr>
                             <th>权限名称</th>
@@ -74,7 +82,8 @@
                         </thead>
                         <tbody>
                         <c:forEach var="permission" items="${list}">
-                            <tr>
+                            <tr data-tt-id="${permission.id}"
+                                data-tt-parent-id="${empty permission.parent.id?'0':permission.parent.id}">
                                 <td>${permission.name}</td>
                                 <td>${permission.type}</td>
                                 <td>${permission.sort}</td>
@@ -89,9 +98,6 @@
                     </table>
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer clearfix">
-                    <%@include file="/WEB-INF/include/paginater.jspf" %>
-                </div>
             </div>
         </div>
         <!-- /.tab-pane -->
@@ -99,10 +105,12 @@
     <!-- /.tab-content -->
 </div>
 <script type="text/javascript">
-    if(CurrentPage==null){
+    $("#treetable").treetable({ expandable: true, initialState: "expanded"});//树形列表
+
+    if (CurrentPage == null) {
         var CurrentPage = {};
     }
-    CurrentPage.query = function(){
+    CurrentPage.query = function () {
         $.formUtils.post($("#searchForm"));
     }
 </script>

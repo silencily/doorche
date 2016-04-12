@@ -92,4 +92,11 @@ public abstract class AbstractControllerSupport {
         model.addAttribute(MODEL_ATTRIBUTE_NAME_CONDITIONS, conditions);
     }
 
+    /**
+     * 屏蔽分页
+     */
+    protected void concealPaginate() {
+        conditionContextManager.getConditionContext().concealPaginate();
+    }
+
 }

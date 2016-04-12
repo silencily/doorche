@@ -3,6 +3,7 @@
  */
 package org.silencer.doorche.support;
 
+import org.hibernate.criterion.DetachedCriteria;
 import org.silencer.doorche.entity.AbstractEntity;
 
 import java.util.List;

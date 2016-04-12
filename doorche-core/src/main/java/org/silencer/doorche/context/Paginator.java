@@ -137,4 +137,11 @@ public class Paginator implements Serializable {
     public boolean isNotPaginated() {
         return this.notPaginated;
     }
+
+    /**
+     * 重置不分页设置
+     */
+    public void resetNotPaginated() {
+        this.notPaginated = true;
+    }
 }
