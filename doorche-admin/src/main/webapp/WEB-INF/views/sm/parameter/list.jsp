@@ -11,7 +11,7 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a href="${ctx}/sm/parameter">列表</a></li>
-        <li><a href="${ctx}/sm/parameter/new">添加参数</a></li>
+        <li><a href="${ctx}/sm/parameter/new">参数新增</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">

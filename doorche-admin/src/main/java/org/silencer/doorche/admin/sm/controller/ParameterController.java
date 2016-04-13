@@ -30,9 +30,11 @@ public class ParameterController extends AbstractAdminController {
         model.addAttribute("list", list);
         return "sm/parameter/list";
     }
-    @RequestMapping("/new")
-    public String newing(){
 
+    @RequestMapping("/new")
+    public String newing(Model model) {
+        TsmParameter parameter = new TsmParameter();
+        model.addAttribute("parameter", parameter);
         return "sm/parameter/info";
     }
 
