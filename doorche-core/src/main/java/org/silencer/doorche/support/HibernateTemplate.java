@@ -12,12 +12,15 @@ import org.silencer.doorche.context.ConditionContext;
 import org.silencer.doorche.context.ConditionContextManager;
 import org.silencer.doorche.context.Paginator;
 import org.silencer.doorche.entity.AbstractEntity;
+import org.silencer.doorche.entity.TsmUser;
+import org.silencer.doorche.security.SecurityContextHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -284,6 +287,12 @@ public class HibernateTemplate {
         }
     }
 
+    public <T extends AbstractEntity> T load(Class<T> clazz, Integer id) {
+        Session session = sessionFactory.getCurrentSession();
+        Object entity = session.load(clazz, id);
+        return (T) entity;
+    }
+
 
     /**
      * 更新保存
@@ -291,6 +300,10 @@ public class HibernateTemplate {
      * @param entity
      */
     public void update(AbstractEntity entity) {
+        entity.setUpdateTime(new Date());
+        int currentUserId = SecurityContextHelper.obtainCurrentSecurityUserId();
+        TsmUser tsmUser = load(TsmUser.class, currentUserId);
+        entity.setUpdateBy(tsmUser);
         Session session = sessionFactory.getCurrentSession();
         session.update(entity);
     }
@@ -301,6 +314,11 @@ public class HibernateTemplate {
      * @param entity
      */
     public void save(AbstractEntity entity) {
+        entity.setCreateTime(new Date());
+        int currentUserId = SecurityContextHelper.obtainCurrentSecurityUserId();
+        TsmUser tsmUser = load(TsmUser.class, currentUserId);
+        entity.setCreateBy(tsmUser);
+
         Session session = sessionFactory.getCurrentSession();
         session.save(entity);
     }

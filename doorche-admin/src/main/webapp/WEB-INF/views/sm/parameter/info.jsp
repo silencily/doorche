@@ -89,10 +89,10 @@
         var CurrentPage = {};
     }
     CurrentPage.save = function () {
-        //$.formUtils.post($("#searchForm"));
+        $.formUtils.post($("#infoForm"));
     }
     CurrentPage.back = function () {
-
+        window.history.back();
     }
 </script>
 </body>

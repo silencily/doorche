@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <!-- /.box-header -->
-                <form id="searchForm" class="form-horizontal" method="post" action="${ctx}/sm/user">
+                <form id="searchForm" class="form-horizontal" method="post" action="${ctx}/sm/parameter">
                     <div class="box-body">
                         <div class="form-group">
                             <label for="paramType" class="col-sm-1 control-label">参数类型</label>

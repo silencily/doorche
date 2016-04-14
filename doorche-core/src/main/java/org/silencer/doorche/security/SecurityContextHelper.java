@@ -42,5 +42,20 @@ public class SecurityContextHelper {
         return (UserDetails) principal;
     }
 
+    /**
+     * 获取当前登录安全用户id
+     *
+     * @return 用户id
+     */
+    public static int obtainCurrentSecurityUserId() {
+        UserDetails userDetails = obtainCurrentSecurityUser();
+        if (userDetails instanceof DoorcheUserDetails) {
+            return ((DoorcheUserDetails) userDetails).getUserId();
+        } else {
+            logger.warn("当前未设置[DoorcheUserDetails]类型.");
+            return 0;
+        }
+    }
+
 
 }

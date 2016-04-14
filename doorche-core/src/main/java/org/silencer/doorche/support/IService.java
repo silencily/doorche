@@ -3,7 +3,6 @@
  */
 package org.silencer.doorche.support;
 
-import org.hibernate.criterion.DetachedCriteria;
 import org.silencer.doorche.entity.AbstractEntity;
 
 import java.util.List;
@@ -30,4 +29,28 @@ public interface IService {
      * @return 实体结果集
      */
     public <T extends AbstractEntity> List<T> list(Class<T> clazz);
+
+    /**
+     * load实体
+     *
+     * @param clazz 实体类
+     * @param id    实体id
+     * @param <T>   实体泛型
+     * @return 实体对象
+     */
+    public <T extends AbstractEntity> T load(Class<T> clazz, Integer id);
+
+    /**
+     * 新增保存
+     *
+     * @param entity 实体对象
+     */
+    public void save(AbstractEntity entity);
+
+    /**
+     * 修改保存
+     *
+     * @param entity 实体对象
+     */
+    public void update(AbstractEntity entity);
 }

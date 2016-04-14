@@ -51,4 +51,19 @@ public abstract class AbstractService implements IService {
         conditionContextManager.recoverQuery();//恢复系统自动处理查询条件
         return (List<T>) hibernateTemplate.findByCriteria(dc);
     }
+
+    @Override
+    public void save(AbstractEntity entity) {
+        hibernateTemplate.save(entity);
+    }
+
+    @Override
+    public void update(AbstractEntity entity) {
+        hibernateTemplate.update(entity);
+    }
+
+    @Override
+    public <T extends AbstractEntity> T load(Class<T> clazz, Integer id) {
+        return hibernateTemplate.load(clazz,id);
+    }
 }
