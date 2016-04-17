@@ -7,6 +7,7 @@ import org.hibernate.criterion.Restrictions;
 import org.silencer.doorche.context.ConditionContextManager;
 import org.silencer.doorche.entity.AbstractEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public abstract class AbstractService implements IService {
         return hibernateTemplate;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public <T extends AbstractEntity> List<T> list(Class<T> clazz) {
         DetachedCriteria dc = DetachedCriteria.forClass(clazz);
@@ -52,18 +54,35 @@ public abstract class AbstractService implements IService {
         return (List<T>) hibernateTemplate.findByCriteria(dc);
     }
 
+    @Transactional
     @Override
     public void save(AbstractEntity entity) {
         hibernateTemplate.save(entity);
     }
-
+    @Transactional
     @Override
     public void update(AbstractEntity entity) {
         hibernateTemplate.update(entity);
     }
+    @Transactional
+    @Override
+    public void saveOrUpdate(AbstractEntity entity) {
+        hibernateTemplate.saveOrUpdate(entity);
+    }
 
+    @Transactional(readOnly = true)
     @Override
     public <T extends AbstractEntity> T load(Class<T> clazz, Integer id) {
         return hibernateTemplate.load(clazz,id);
+    }
+    @Transactional(readOnly = true)
+    @Override
+    public <T extends AbstractEntity> T get(Class<T> clazz, Integer id) {
+        return hibernateTemplate.get(clazz, id);
+    }
+    @Transactional
+    @Override
+    public void merge(AbstractEntity entity) {
+        hibernateTemplate.merge(entity);
     }
 }

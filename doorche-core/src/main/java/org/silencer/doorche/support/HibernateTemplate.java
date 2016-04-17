@@ -287,9 +287,31 @@ public class HibernateTemplate {
         }
     }
 
+    /**
+     * 懒加载实体对象，使用代理创建,实体对象必须在数据库中存在
+     *
+     * @param clazz
+     * @param id
+     * @param <T>
+     * @return
+     */
     public <T extends AbstractEntity> T load(Class<T> clazz, Integer id) {
         Session session = sessionFactory.getCurrentSession();
         Object entity = session.load(clazz, id);
+        return (T) entity;
+    }
+
+    /**
+     * 获取实体对象，若数据库中不存则返回null
+     *
+     * @param clazz
+     * @param id
+     * @param <T>
+     * @return
+     */
+    public <T extends AbstractEntity> T get(Class<T> clazz, Integer id) {
+        Session session = sessionFactory.getCurrentSession();
+        Object entity = session.get(clazz, id);
         return (T) entity;
     }
 
@@ -300,11 +322,12 @@ public class HibernateTemplate {
      * @param entity
      */
     public void update(AbstractEntity entity) {
+        Session session = sessionFactory.getCurrentSession();
         entity.setUpdateTime(new Date());
         int currentUserId = SecurityContextHelper.obtainCurrentSecurityUserId();
-        TsmUser tsmUser = load(TsmUser.class, currentUserId);
+        TsmUser tsmUser = (TsmUser) session.load(TsmUser.class, currentUserId);
         entity.setUpdateBy(tsmUser);
-        Session session = sessionFactory.getCurrentSession();
+
         session.update(entity);
     }
 
@@ -314,13 +337,58 @@ public class HibernateTemplate {
      * @param entity
      */
     public void save(AbstractEntity entity) {
+        Session session = sessionFactory.getCurrentSession();
         entity.setCreateTime(new Date());
         int currentUserId = SecurityContextHelper.obtainCurrentSecurityUserId();
-        TsmUser tsmUser = load(TsmUser.class, currentUserId);
+        TsmUser tsmUser = (TsmUser) session.load(TsmUser.class, currentUserId);
         entity.setCreateBy(tsmUser);
-
-        Session session = sessionFactory.getCurrentSession();
         session.save(entity);
+    }
+
+    /**
+     * 如果对象已经在本session中持久化了，不做任何事<br>
+     * 如果另一个与本session关联的对象拥有相同的持久化标识(identifier)，抛出一个异常<br>
+     * 如果对象没有持久化标识(identifier)属性，对其调用save()<br>
+     * 如果对象的持久标识(identifier)表明其是一个新实例化的对象，对其调用save()<br>
+     * 如果对象是附带版本信息的（通过<version>或<timestamp>） 并且版本属性的值表明其是一个新实例化的对象，save()它。<br>
+     * 否则update() 这个对象
+     *
+     * @param entity 实体对象
+     */
+    public void saveOrUpdate(AbstractEntity entity) {
+        Session session = sessionFactory.getCurrentSession();
+        int currentUserId = SecurityContextHelper.obtainCurrentSecurityUserId();
+        TsmUser tsmUser = (TsmUser) session.get(TsmUser.class, currentUserId);
+        if (entity.getId() == null) {
+            entity.setUpdateTime(new Date());
+            entity.setCreateBy(tsmUser);
+        } else {
+            entity.setUpdateTime(new Date());
+            entity.setUpdateBy(tsmUser);
+        }
+
+        session.saveOrUpdate(entity);
+        session.flush();
+    }
+
+    /**
+     * merge实体，若包含实体id则update若不包含save
+     *
+     * @param entity 实体对象
+     */
+    public void merge(AbstractEntity entity) {
+        Session session = sessionFactory.getCurrentSession();
+        int currentUserId = SecurityContextHelper.obtainCurrentSecurityUserId();
+        TsmUser tsmUser = (TsmUser) session.get(TsmUser.class, currentUserId);
+        if (entity.getId() == null) {
+            entity.setUpdateTime(new Date());
+            entity.setCreateBy(tsmUser);
+        } else {
+            entity.setUpdateTime(new Date());
+            entity.setUpdateBy(tsmUser);
+        }
+        session.merge(entity);
+        session.flush();
     }
 
 

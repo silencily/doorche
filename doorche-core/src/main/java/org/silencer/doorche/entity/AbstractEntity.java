@@ -1,5 +1,8 @@
 package org.silencer.doorche.entity;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -8,6 +11,8 @@ import java.util.Date;
  * @author gejb
  * @since 2015/12/7
  */
+@DynamicUpdate(true)  //若字段为null生成sql将不包含此字段
+@DynamicInsert(true)
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
     public static String IS_FLAG_YES = "1";
@@ -31,7 +36,7 @@ public abstract class AbstractEntity implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CREATE_BY")
     public TsmUser getCreateBy() {
         return createBy;

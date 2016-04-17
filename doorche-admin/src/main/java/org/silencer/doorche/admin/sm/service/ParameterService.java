@@ -3,6 +3,7 @@
  */
 package org.silencer.doorche.admin.sm.service;
 
+import org.silencer.doorche.entity.TsmParameter;
 import org.silencer.doorche.support.IService;
 
 /**
@@ -10,4 +11,6 @@ import org.silencer.doorche.support.IService;
  * @since 2016-04-13
  */
 public interface ParameterService extends IService {
+
+    public void update(TsmParameter tsmParameter);
 }
