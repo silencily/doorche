@@ -55,4 +55,10 @@ public class ParameterController extends AbstractAdminController {
         return "sm/parameter/info";
     }
 
+    @RequestMapping("/delete")
+    public String delete(Integer id) {
+        parameterService.delete(TsmParameter.class, id);
+        return "redirect:/sm/parameter";
+    }
+
 }

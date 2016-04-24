@@ -86,7 +86,10 @@
                                 <td>${parameter.paramKey}</td>
                                 <td>${parameter.paramValue}</td>
                                 <td>${parameter.remarks}</td>
-                                <td><a href="${ctx}/sm/parameter/edit?id=${parameter.id}">修改</a></td>
+                                <td>
+                                    <a href="${ctx}/sm/parameter/edit?id=${parameter.id}">修改</a>
+                                    <a href="${ctx}/sm/parameter/delete?id=${parameter.id}">删除</a>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

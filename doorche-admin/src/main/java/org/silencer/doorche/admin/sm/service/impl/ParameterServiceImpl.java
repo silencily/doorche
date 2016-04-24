@@ -16,14 +16,4 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class ParameterServiceImpl extends AbstractService implements ParameterService {
-
-    @Override
-    public void update(TsmParameter tsmParameter) {
-//        TsmParameter parameter = load(TsmParameter.class, tsmParameter.getId());
-//        parameter.setParamKey(tsmParameter.getParamKey());
-//        parameter.setParamName(tsmParameter.getParamName());
-//        parameter.setParamType(tsmParameter.getParamType());
-//        parameter.setParamValue(tsmParameter.getParamValue());
-        saveOrUpdate(tsmParameter);
-    }
 }

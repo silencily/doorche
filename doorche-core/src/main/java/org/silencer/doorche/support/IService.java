@@ -83,4 +83,13 @@ public interface IService {
      * @param entity 实体对象
      */
     public void merge(AbstractEntity entity);
+
+    /**
+     * 删除实体(逻辑删除，设置isDeleted标识为“1”）
+     *
+     * @param clazz 实体类
+     * @param id    实体对象id
+     * @param <T>   实体类泛型
+     */
+    public <T extends AbstractEntity> void delete(Class<T> clazz, Integer id);
 }
