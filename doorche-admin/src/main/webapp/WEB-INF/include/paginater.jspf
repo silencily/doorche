@@ -31,7 +31,7 @@
                     <c:set var="i" value="0"/>
                     <c:set var="j" value="${begin>=2?2:begin}"/>
                     <c:forEach var="k" begin="1" end="${j-1}" step="1">
-                        <li><a href="#">${k}</a></li>
+                        <li><a href="javascript:Paginator.forward(${k-1});">${k}</a></li>
                         <c:set var="i" value="${k}"/>
                     </c:forEach>
                     <c:if test="${i+1<begin}">
@@ -70,17 +70,17 @@
             if (forwardUrl == null || forwardUrl == "") {
                 forwardUrl = window.location.href;
             }
-            var forwardPage = '<c:out value=" ${conditions.paginator.page}"/>';
+            var forwardPage = '<c:out value="${conditions.paginator.page}"/>';
             var pageCount = '<c:out value="${conditions.paginator.pageCount}"/>';
             var count = '<c:out value="${conditions.paginator.count}"/>';
-            var pageSize = 'c:out value="${conditions.paginator.pageSize}"/>';
+            var pageSize = '<c:out value="${conditions.paginator.pageSize}"/>';
 
             $.extend(Paginator, {
                 forwardUrl: forwardUrl,
-                forwardPage: forwardPage,
-                pageCount: pageCount,
-                count: count,
-                pageSize: pageSize
+                forwardPage: parseInt(forwardPage),
+                pageCount: parseInt(pageCount),
+                count: parseInt(count),
+                pageSize: parseInt(pageSize)
             });
             Paginator.forward = function (page) {
                 var forwardPage = page;
