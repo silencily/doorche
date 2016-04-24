@@ -93,7 +93,7 @@
         $.formUtils.post($("#infoForm"));
     }
     CurrentPage.back = function () {
-        window.history.back();
+        $.formUtils.post($("#infoForm"),"${ctx}/sm/parameter");
     }
 </script>
 </body>
