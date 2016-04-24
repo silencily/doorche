@@ -9,6 +9,7 @@ import org.silencer.doorche.admin.sm.service.PermissionService;
 import org.silencer.doorche.entity.TsmPermission;
 import org.silencer.doorche.support.AbstractService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
  * @author gejb
  * @since 2016-04-12
  */
+@Transactional
 @Service
 public class PermissionServiceImpl extends AbstractService implements PermissionService {
     @Override

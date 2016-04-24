@@ -5,6 +5,7 @@ package org.silencer.doorche.admin.sm.controller;
 
 import org.silencer.doorche.admin.sm.service.ParameterService;
 import org.silencer.doorche.admin.support.web.AbstractAdminController;
+import org.silencer.doorche.context.SpringContextHolder;
 import org.silencer.doorche.entity.TsmParameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,11 +41,9 @@ public class ParameterController extends AbstractAdminController {
 
     @RequestMapping("/save")
     public String save(TsmParameter parameter, Model model) {
-        if (parameter.getId() == null) {
-            parameterService.save(parameter);
-        } else {
-            parameterService.update(parameter);
-        }
+
+        parameterService.saveOrUpdate(parameter);
+
         model.addAttribute("parameter", parameter);
         return "/sm/parameter/info";
     }

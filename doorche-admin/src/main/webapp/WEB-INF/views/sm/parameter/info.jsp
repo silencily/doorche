@@ -32,6 +32,7 @@
                 <!-- /.box-header -->
                 <form id="infoForm" class="form-horizontal" method="post" action="${ctx}/sm/parameter/save">
                     <input type="hidden" name="id" value="${parameter.id}"/>
+                    <input type="hidden" name="version" value="${parameter.version}"/>
 
                     <div class="box-body">
                         <div class="form-group">

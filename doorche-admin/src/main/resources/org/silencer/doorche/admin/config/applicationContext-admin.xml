@@ -49,6 +49,7 @@
         <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <!--默认使用jdk代理，在创建包含@Transactional注解的service实例对象时将事务性功能织入代理实例中-->
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!-- Ehcache实现 -->
@@ -58,6 +59,8 @@
     <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
         <property name="cacheManager" ref="ehcacheManager"/>
     </bean>
+
+
 
     <import resource="applicationContext-security.xml"/>
 

@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import javax.annotation.Resource;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +37,7 @@ public class HibernateTemplate {
 
     private static final String CRITERIA_ASSERT_ERROR_MESSAGE = " 's type is not " + CriteriaImpl.class + ", please make sure you are using Hibernate-4.1.6.Final!!! ";
 
-    @Autowired
+    @Resource
     private SessionFactory sessionFactory;
     @Autowired
     private ConditionContextManager conditionContextManager;
@@ -360,7 +361,7 @@ public class HibernateTemplate {
         int currentUserId = SecurityContextHelper.obtainCurrentSecurityUserId();
         TsmUser tsmUser = (TsmUser) session.get(TsmUser.class, currentUserId);
         if (entity.getId() == null) {
-            entity.setUpdateTime(new Date());
+            entity.setCreateTime(new Date());
             entity.setCreateBy(tsmUser);
         } else {
             entity.setUpdateTime(new Date());
@@ -368,7 +369,6 @@ public class HibernateTemplate {
         }
 
         session.saveOrUpdate(entity);
-        session.flush();
     }
 
     /**
@@ -388,7 +388,6 @@ public class HibernateTemplate {
             entity.setUpdateBy(tsmUser);
         }
         session.merge(entity);
-        session.flush();
     }
 
 

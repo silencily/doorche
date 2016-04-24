@@ -17,6 +17,7 @@ import java.util.List;
  * @author gejb
  * @since 2016/3/4
  */
+@Transactional
 public abstract class AbstractService implements IService {
     protected final Log logger = LogFactory.getLog(getClass());
     @Autowired
@@ -33,7 +34,6 @@ public abstract class AbstractService implements IService {
     public HibernateTemplate getHibernateTemplate() {
         return hibernateTemplate;
     }
-
     @Transactional(readOnly = true)
     @Override
     public <T extends AbstractEntity> List<T> list(Class<T> clazz) {
@@ -54,22 +54,19 @@ public abstract class AbstractService implements IService {
         return (List<T>) hibernateTemplate.findByCriteria(dc);
     }
 
-    @Transactional
     @Override
     public void save(AbstractEntity entity) {
         hibernateTemplate.save(entity);
     }
-    @Transactional
+
     @Override
     public void update(AbstractEntity entity) {
         hibernateTemplate.update(entity);
     }
-    @Transactional
     @Override
     public void saveOrUpdate(AbstractEntity entity) {
         hibernateTemplate.saveOrUpdate(entity);
     }
-
     @Transactional(readOnly = true)
     @Override
     public <T extends AbstractEntity> T load(Class<T> clazz, Integer id) {
@@ -80,7 +77,6 @@ public abstract class AbstractService implements IService {
     public <T extends AbstractEntity> T get(Class<T> clazz, Integer id) {
         return hibernateTemplate.get(clazz, id);
     }
-    @Transactional
     @Override
     public void merge(AbstractEntity entity) {
         hibernateTemplate.merge(entity);

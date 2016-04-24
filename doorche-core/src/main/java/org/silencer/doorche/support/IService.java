@@ -4,6 +4,7 @@
 package org.silencer.doorche.support;
 
 import org.silencer.doorche.entity.AbstractEntity;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

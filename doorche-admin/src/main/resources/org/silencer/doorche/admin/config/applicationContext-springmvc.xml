@@ -8,7 +8,10 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <description>voter spring mvc config</description>
 
-    <context:component-scan base-package="org.silencer.doorche.admin">
+    <!-- 此处一定要使用 use-default-filters="false" 不然此context会扫描@Service并注入controller中导致service方法失去事务性（@Transactional)
+         因为parent context 加载时使用jdk代理创建service实例并切入事务，而此处若直接创建service实例不会切入事务性功能
+    -->
+    <context:component-scan base-package="org.silencer.doorche.admin" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
