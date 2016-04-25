@@ -1,5 +1,8 @@
 package org.silencer.doorche.entity;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
@@ -11,6 +14,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "T_SM_USER")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, include = "non-lazy")
 public class TsmUser extends AbstractEntity {
     private String loginName;
     private String password;
@@ -106,7 +110,7 @@ public class TsmUser extends AbstractEntity {
     }
 
     //关系维护端
-    @ManyToMany(cascade = CascadeType.REFRESH,fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinTable(name = "T_SM_USER_ROLE", inverseJoinColumns = @JoinColumn(name = "ROLE_ID"),
             joinColumns = @JoinColumn(name = "USER_ID"))
     public Set<TsmRole> getTsmRoles() {

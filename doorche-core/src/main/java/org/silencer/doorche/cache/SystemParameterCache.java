@@ -16,6 +16,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
@@ -36,7 +37,7 @@ public class SystemParameterCache {
 
     @Autowired
     private CacheManager cacheManager;
-    @Autowired
+    @Resource
     private SessionFactory sessionFactory;
 
     @PostConstruct

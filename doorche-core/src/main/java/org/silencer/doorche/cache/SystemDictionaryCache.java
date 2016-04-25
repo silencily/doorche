@@ -17,6 +17,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class SystemDictionaryCache {
     @Autowired
     private CacheManager cacheManager;
 
-    @Autowired
+    @Resource
     private SessionFactory sessionFactory;
 
     @PostConstruct
