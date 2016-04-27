@@ -12,7 +12,7 @@
     <ul class="nav nav-tabs">
         <li><a href="${ctx}/sm/parameter">列表</a></li>
         <c:if test="${not empty parameter.id}">
-            <li class="active"><a href="${ctx}/sm/parameter/${parameter.id}">参数修改</a></li>
+            <li class="active"><a href="${ctx}/sm/parameter/edit?id=${parameter.id}">参数修改</a></li>
         </c:if>
         <c:if test="${empty parameter.id}">
             <li class="active"><a href="${ctx}/sm/parameter/new">参数新增</a></li>
