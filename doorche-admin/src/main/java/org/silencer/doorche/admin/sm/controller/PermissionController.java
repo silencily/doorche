@@ -2,6 +2,7 @@ package org.silencer.doorche.admin.sm.controller;
 
 import org.silencer.doorche.admin.sm.service.PermissionService;
 import org.silencer.doorche.admin.support.web.AbstractAdminController;
+import org.silencer.doorche.entity.TsmDict;
 import org.silencer.doorche.entity.TsmPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,5 +28,12 @@ public class PermissionController extends AbstractAdminController {
         List<TsmPermission> list = permissionService.list();
         model.addAttribute("list", list);
         return "sm/permission/list";
+    }
+
+    @RequestMapping("/new")
+    public String newing(Model model) {
+        TsmPermission permission = new TsmPermission();
+        model.addAttribute("permission", permission);
+        return "sm/permission/info";
     }
 }
