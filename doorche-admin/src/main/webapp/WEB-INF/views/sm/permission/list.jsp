@@ -12,7 +12,7 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a href="${ctx}/sm/permission">列表</a></li>
-        <li><a href="${ctx}/sm/permission/add">添加权限</a></li>
+        <li><a href="${ctx}/sm/permission/new">添加权限</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">

@@ -1,0 +1,5 @@
+<%@page pageEncoding="utf-8" %>
+
+<link rel="stylesheet" href="${ctxStatic}/assets/bootstrap-treeview/bootstrap-treeview.css">
+<%--<link rel="stylesheet" href="${ctxStatic}/assets/jquery-treetable-3.2.0/css/jquery.treetable.theme.default.css">--%>
+<script src="${ctxStatic}/assets/bootstrap-treeview/bootstrap-treeview.js"></script>

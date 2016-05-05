@@ -4,6 +4,7 @@
 <head>
     <title>Doorche-Admin | 权限详情</title>
     <meta name="decorator" content="default"/>
+    <%@include file="/WEB-INF/include/treeview.jspf" %>
 </head>
 
 <body>
@@ -36,39 +37,63 @@
 
                     <div class="box-body">
                         <div class="form-group">
-                            <label for="paramType" class="col-sm-2 control-label">参数类型</label>
+                            <label for="parentPermission" class="col-sm-2 control-label">上级节点</label>
 
                             <div class="col-sm-4">
-                                <input id="paramType" class="form-control" type="text" name="paramType"
-                                       value="${parameter.paramType}" placeholder="参数类型"/>
+                                <tree:select id="parentPermission" title="上级节点" name="parentId"
+                                             value="${permission.parent.id}" showName="parentName"
+                                             showValue="${permission.parent.name}" url="${ctx}/sm/permission/tree"
+                                             placeholder="请选择" excludeId="${permission.id}"/>
                             </div>
-                            <label for="paramName" class="col-sm-2 control-label">参数名称</label>
+                            <label for="type" class="col-sm-2 control-label">权限类型</label>
 
                             <div class="col-sm-4">
-                                <input id="paramName" class="form-control" type="text" name="paramName"
-                                       value="${parameter.paramName}" placeholder="参数名称"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="paramKey" class="col-sm-2 control-label">参数编码</label>
-
-                            <div class="col-sm-4">
-                                <input id="paramKey" class="form-control" type="text" name="paramKey"
-                                       value="${parameter.paramKey}" placeholder="参数编码"/>
-                            </div>
-                            <label for="paramValue" class="col-sm-2 control-label">参数值</label>
-
-                            <div class="col-sm-4">
-                                <input id="paramValue" class="form-control" type="text" name="paramValue"
-                                       value="${parameter.paramValue}" placeholder="参数值"/>
+                                <input id="type" class="form-control" type="text" name="type"
+                                       value="${permission.type}" placeholder="权限类型"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="remarks" class="col-sm-2 control-label">说明</label>
+                            <label for="name" class="col-sm-2 control-label">权限名称</label>
+
+                            <div class="col-sm-4">
+                                <input id="name" class="form-control" type="text" name="name"
+                                       value="${permission.name}" placeholder="权限名称"/>
+                            </div>
+                            <label for="sort" class="col-sm-2 control-label">排序</label>
+
+                            <div class="col-sm-4">
+                                <input id="sort" class="form-control" type="text" name="sort"
+                                       value="${permission.sort}" placeholder="排序"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="href" class="col-sm-2 control-label">链接</label>
 
                             <div class="col-sm-10">
-                                <input id="remarks" class="form-control" type="text" name="remarks"
-                                       value="${parameter.remarks}" placeholder="说明"/>
+                                <input id="href" class="form-control" type="text" name="href"
+                                       value="${permission.href}" placeholder="链接"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="icon" class="col-sm-2 control-label">权限图标</label>
+
+                            <div class="col-sm-4">
+                                <input id="icon" class="form-control" type="text" name="icon"
+                                       value="${permission.icon}" placeholder="权限图标"/>
+                            </div>
+                            <label for="permission" class="col-sm-2 control-label">权限标识</label>
+
+                            <div class="col-sm-4">
+                                <input id="permission" class="form-control" type="text" name="permission"
+                                       value="${permission.permission}" placeholder="权限标识"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="isShow" class="col-sm-2 control-label">是否显示</label>
+
+                            <div class="col-sm-4">
+                                <input id="isShow" class="form-control" type="text" name="isShow"
+                                       value="${permission.isShow}" placeholder="是否显示"/>
                             </div>
                         </div>
                     </div>
@@ -93,7 +118,7 @@
         $.formUtils.post($("#infoForm"));
     }
     CurrentPage.back = function () {
-        $.formUtils.post($("#infoForm"),"${ctx}/sm/parameter");
+        $.formUtils.post($("#infoForm"), "${ctx}/sm/permission");
     }
 </script>
 </body>
