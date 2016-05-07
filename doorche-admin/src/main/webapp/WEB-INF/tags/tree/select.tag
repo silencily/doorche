@@ -11,7 +11,7 @@
 <%@ attribute name="placeholder" type="java.lang.String" required="false" description="placeholder" %>
 
 <div class="input-group">
-    <input id="${id}" type="hidden" name="${name}" value="${value}">
+    <input id="hide-${id}" type="hidden" name="${name}" value="${value}">
     <input type="text" style="${cssStyle}" name="${showName}" class="form-control" id="show-${id}"
            placeholder="${placeholder}" value="${showValue}" readonly>
     <span class="input-group-btn">
@@ -43,7 +43,10 @@
         //加载树节点数据
         $.post(url, {excludeId: excludeId}, function (data, textStatus, jqXHR) {
             $('#tree-${id}').treeview({data: data,showBorder:false, onNodeSelected: function (event, data) {
-                console.log("onNodeSelected");
+                console.log("onNodeSelected:"+data);
+                $('#modal-${id}').modal('hide');
+                $('#show-${id}').val(data.text);
+                $('#hide-${id}').val(data.id);
             }});
         }, "json");
 

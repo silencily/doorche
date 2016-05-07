@@ -11,7 +11,7 @@
 
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
-        <li><a href="${ctx}/sm/parameter">列表</a></li>
+        <li><a href="${ctx}/sm/permission">列表</a></li>
         <c:if test="${not empty permission.id}">
             <li class="active"><a href="${ctx}/sm/permission/edit?id=${permission.id}">权限修改</a></li>
         </c:if>
@@ -40,7 +40,7 @@
                             <label for="parentPermission" class="col-sm-2 control-label">上级节点</label>
 
                             <div class="col-sm-4">
-                                <tree:select id="parentPermission" title="上级节点" name="parentId"
+                                <tree:select id="parentPermission" title="请选择" name="parentId"
                                              value="${permission.parent.id}" showName="parentName"
                                              showValue="${permission.parent.name}" url="${ctx}/sm/permission/tree"
                                              placeholder="请选择" excludeId="${permission.id}"/>
