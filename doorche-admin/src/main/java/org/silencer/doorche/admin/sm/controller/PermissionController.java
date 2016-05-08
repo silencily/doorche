@@ -50,4 +50,19 @@ public class PermissionController extends AbstractAdminController {
         List<TreeViewNode> treeViewNodes = TreeViewNodePopulater.populate(dataSrcNodes);
         return treeViewNodes;
     }
+
+    @RequestMapping("/save")
+    public String save(TsmPermission permission, Integer parentId, Model model) {
+
+        if (parentId == null) {
+            permission.setParent(null);
+        } else {
+            TsmPermission parent = permissionService.load(TsmPermission.class, parentId);
+            permission.setParent(parent);
+        }
+        permissionService.saveOrUpdate(permission);
+        model.addAttribute("permission", permission);
+
+        return "sm/permission/info";
+    }
 }

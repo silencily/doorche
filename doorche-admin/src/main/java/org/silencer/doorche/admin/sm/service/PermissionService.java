@@ -23,6 +23,7 @@ public interface PermissionService extends IService {
 
     /**
      * 查找权限树
+     *
      * @param excludeId 排除id
      * @return 权限树
      */
