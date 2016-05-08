@@ -4,6 +4,8 @@
  *
  * Copyright 2013, Ludo van den Boom
  * Dual licensed under the MIT or GPL Version 2 licenses.
+ *
+ * Note:增加扩展功能“复选框选择” by silencily
  */
 (function($) {
   var Node, Tree, methods;
@@ -28,6 +30,8 @@
       this.treeCell = $(this.row.children(this.settings.columnElType)[this.settings.column]);
       this.expander = $(this.settings.expanderTemplate);
       this.indenter = $(this.settings.indenterTemplate);
+      this.checkboxer = $(this.settings.checkboxTemplate);
+      this.checked = false;
       this.children = [];
       this.initialized = false;
       this.treeCell.prepend(this.indenter);
@@ -153,7 +157,17 @@
         });
       }
 
+
       this.indenter[0].style.paddingLeft = "" + (this.level() * settings.indent) + "px";
+
+      if(settings.multiSelectable === true){
+          this.checkboxer.val(this.id);
+          this.indenter.after(this.checkboxer);
+          this.checkboxer.off("click.treetable").on("click.treetable",{srcNode:this},function(e){
+              e.data.srcNode.toggleChecked();
+          });
+
+      }
 
       return this;
     };
@@ -233,6 +247,64 @@
       }
       return _results;
     };
+    //切换当前节点选中或取消选中
+    Node.prototype.toggleChecked = function(){
+        if(this.settings.multiSelectable === true){
+            if(this.checkboxer.prop("checked") === true){
+                this.checked = true;//选中
+                this.checkboxer.prop("checked",true);
+            }else{
+                this.checked = false;//取消选中
+                this.checkboxer.prop("checked",false);
+            }
+            this._toggleParentChecked();
+            this._toggleChildrenChecked();
+        }
+    };
+    //切换父节点选中或取消选中
+    Node.prototype._toggleParentChecked = function(){
+        var parent = this.parentNode();
+        if(parent){
+           if(this.checked){
+               parent.checked = true;
+               parent.checkboxer.prop("checked",true);
+               parent._toggleParentChecked();
+           }else{
+               var children = parent.children;
+               var hasChildChecked = false;//是否有孩子节点为选中
+               for(var i = 0;i<children.length;i++){
+                   var child = children[i];
+                   if(child.checked){
+                       hasChildChecked = true;
+                   }
+               }
+               if(!hasChildChecked){
+                   parent.checked = false;
+                   parent.checkboxer.prop("checked",false);
+                   parent._toggleParentChecked();
+               }
+           }
+        }
+    };
+    //切换孩子节点选中或取消选中
+    Node.prototype._toggleChildrenChecked = function(){
+        if(this.isBranchNode()){
+            this.expand(); //保证子节点进行初始化，所以需要进行展开
+            var children  = this.children;
+            for(var i=0;i<children.length;i++){
+                var child = children[i];
+                if(this.checked){
+                    child.checked = true;
+                    child.checkboxer.prop("checked",true);
+                }else{
+                    child.checked = false;
+                    child.checkboxer.prop("checked",false);
+                }
+                child._toggleChildrenChecked();
+            }
+        }
+    };
+
 
     return Node;
   })();
@@ -432,11 +504,13 @@
         expanderTemplate: "<a href='#'>&nbsp;</a>",
         indent: 19,
         indenterTemplate: "<span class='indenter'></span>",
+        checkboxTemplate: "<input type='checkbox' style='margin-right: 5px;'>",
         initialState: "collapsed",
         nodeIdAttr: "ttId", // maps to data-tt-id
         parentIdAttr: "ttParentId", // maps to data-tt-parent-id
         stringExpand: "Expand",
         stringCollapse: "Collapse",
+        multiSelectable:false,//多选
 
         // Events
         onInitialized: null,

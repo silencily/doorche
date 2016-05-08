@@ -11,7 +11,7 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a href="${ctx}/sm/role">列表</a></li>
-        <li><a href="${ctx}/sm/role/add">添加角色</a></li>
+        <li><a href="${ctx}/sm/role/new">添加角色</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">
@@ -67,7 +67,7 @@
                             <th>角色名称</th>
                             <th>角色编码</th>
                             <th>数据范围</th>
-                            <th>状态</th>
+                            <th>是否禁用</th>
                             <th>操作</th>
                         </tr>
                         </thead>

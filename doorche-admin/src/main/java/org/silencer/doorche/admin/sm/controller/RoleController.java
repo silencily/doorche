@@ -1,7 +1,9 @@
 package org.silencer.doorche.admin.sm.controller;
 
+import org.silencer.doorche.admin.sm.service.PermissionService;
 import org.silencer.doorche.admin.sm.service.RoleService;
 import org.silencer.doorche.admin.support.web.AbstractAdminController;
+import org.silencer.doorche.entity.TsmPermission;
 import org.silencer.doorche.entity.TsmRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,11 +21,22 @@ import java.util.List;
 public class RoleController extends AbstractAdminController {
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private PermissionService permissionService;
 
     @RequestMapping
     public String list(Model model) {
         List<TsmRole> list = roleService.list(TsmRole.class);
         model.addAttribute("list", list);
         return "sm/role/list";
+    }
+
+    @RequestMapping("/new")
+    public String newing(Model model) {
+        TsmRole role = new TsmRole();
+        List<TsmPermission> permissionList = permissionService.list();
+        model.addAttribute("role", role);
+        model.addAttribute("permissionList", permissionList);
+        return "sm/role/info";
     }
 }
