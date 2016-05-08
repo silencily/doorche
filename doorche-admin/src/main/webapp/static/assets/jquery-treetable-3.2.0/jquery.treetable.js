@@ -31,7 +31,7 @@
       this.expander = $(this.settings.expanderTemplate);
       this.indenter = $(this.settings.indenterTemplate);
       this.checkboxer = $(this.settings.checkboxTemplate);
-      this.checked = false;
+      this.checked = this.row.data(this.settings.nodeCheckedAttr) ? true : false;
       this.children = [];
       this.initialized = false;
       this.treeCell.prepend(this.indenter);
@@ -166,7 +166,9 @@
           this.checkboxer.off("click.treetable").on("click.treetable",{srcNode:this},function(e){
               e.data.srcNode.toggleChecked();
           });
-
+          if(this.checked){
+              this.checkboxer.prop("checked",true);//初始选中
+          }
       }
 
       return this;
@@ -510,6 +512,9 @@
         parentIdAttr: "ttParentId", // maps to data-tt-parent-id
         stringExpand: "Expand",
         stringCollapse: "Collapse",
+
+        //extended by silencily
+        nodeCheckedAttr:"ttChecked",//maps to data-tt-checked
         multiSelectable:false,//多选
 
         // Events
