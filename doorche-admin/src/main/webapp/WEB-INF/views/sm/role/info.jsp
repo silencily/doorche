@@ -106,13 +106,15 @@
     <!-- /.tab-content -->
 </div>
 <script type="text/javascript">
-    $("#treetable").treetable({ expandable: true, initialState: "expanded", multiSelectable: true});//树形列表
+    var treetable = $("#treetable").treetable({ expandable: true, initialState: "expanded", multiSelectable: true});//树形列表
 
     if (CurrentPage == null) {
         var CurrentPage = {};
     }
     CurrentPage.save = function () {
-        $.formUtils.post($("#infoForm"));
+        var checkedIds = treetable.treetable("obtainChecked");
+        alert(checkedIds);
+        //$.formUtils.post($("#infoForm"));
     }
     CurrentPage.back = function () {
         $.formUtils.post($("#infoForm"), "${ctx}/sm/role");

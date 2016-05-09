@@ -688,6 +688,20 @@
     unloadBranch: function(node) {
       this.data("treetable").unloadBranch(node);
       return this;
+    },
+    //获取所有选中的id,返回checkedIds = []
+    obtainChecked: function(){
+        var settings = this.data("treetable").settings,
+            nodes = this.data("treetable").nodes,
+            checkedIds = [];
+        if(settings.multiSelectable){
+            $.each(nodes,function(){
+                if(this.checked){
+                    checkedIds.push(this.id);
+                }
+            });
+        }
+        return checkedIds;
     }
   };
 
