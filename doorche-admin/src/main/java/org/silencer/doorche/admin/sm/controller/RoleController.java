@@ -5,6 +5,7 @@ import org.silencer.doorche.admin.sm.service.RoleService;
 import org.silencer.doorche.admin.support.web.AbstractAdminController;
 import org.silencer.doorche.entity.TsmPermission;
 import org.silencer.doorche.entity.TsmRole;
+import org.silencer.doorche.support.TreeTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,10 +34,16 @@ public class RoleController extends AbstractAdminController {
 
     @RequestMapping("/new")
     public String newing(Model model) {
-        TsmRole role = new TsmRole();
-        List<TsmPermission> permissionList = permissionService.list();
-        model.addAttribute("role", role);
-        model.addAttribute("permissionList", permissionList);
+        try {
+            TsmRole role = new TsmRole();
+            List<TsmPermission> permissionList = permissionService.list();
+            TreeTableModel<TsmPermission> treeTable = new TreeTableModel<TsmPermission>(permissionList);
+            model.addAttribute("role", role);
+            model.addAttribute("permissionList", treeTable.getNodes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "sm/role/info";
     }
 }

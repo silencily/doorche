@@ -78,15 +78,16 @@
                             </thead>
                             <tbody>
                             <c:forEach var="permission" items="${permissionList}">
-                                <tr data-tt-id="${permission.id}"
-                                    data-tt-parent-id="${empty permission.parent.id?'0':permission.parent.id}">
-                                    <td>${permission.name}</td>
-                                    <td>${fns:getDictValue('PERMISSION_TYPE',permission.type)}</td>
-                                    <td>${permission.sort}</td>
-                                    <td>${permission.href}</td>
-                                    <td>${permission.icon}</td>
-                                    <td>${permission.permission}</td>
-                                    <td>${fns:getDictValue('PERMISSION_ISSHOW',permission.isShow)}</td>
+                                <tr data-tt-id="${permission.node.id}"
+                                    data-tt-parent-id="${empty permission.node.parent.id?'0':permission.node.parent.id}"
+                                    data-tt-checked="${permission.checked}">
+                                    <td>${permission.node.name}</td>
+                                    <td>${fns:getDictValue('PERMISSION_TYPE',permission.node.type)}</td>
+                                    <td>${permission.node.sort}</td>
+                                    <td>${permission.node.href}</td>
+                                    <td>${permission.node.icon}</td>
+                                    <td>${permission.node.permission}</td>
+                                    <td>${fns:getDictValue('PERMISSION_ISSHOW',permission.node.isShow)}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
