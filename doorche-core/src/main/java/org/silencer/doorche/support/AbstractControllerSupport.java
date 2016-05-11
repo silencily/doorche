@@ -4,19 +4,15 @@ import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.silencer.doorche.context.Condition;
-import org.silencer.doorche.context.ConditionContext;
-import org.silencer.doorche.context.ConditionContextManager;
-import org.silencer.doorche.context.Paginator;
+import org.silencer.doorche.context.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 控制器基类
@@ -25,6 +21,7 @@ import java.util.Map;
  * @since 2016/2/18
  */
 public abstract class AbstractControllerSupport {
+
     protected final Log logger = LogFactory.getLog(getClass());
 
     /**
@@ -97,6 +94,49 @@ public abstract class AbstractControllerSupport {
      */
     protected void concealPaginate() {
         conditionContextManager.getConditionContext().concealPaginate();
+    }
+
+    /**
+     * 根据code获取国际化资源消息
+     *
+     * @param code 国际化消息编码
+     * @return 国际化消息
+     */
+    protected String getMessage(String code) {
+        return getMessage(code, null, null);
+    }
+
+    protected String getMessage(String code, String[] args, Locale locale) {
+        ApplicationContext applicationContext = SpringContextHolder.getApplicationContext();
+        return applicationContext.getMessage(code, args, locale);
+    }
+
+    /**
+     * 添加Model消息
+     *
+     * @param model
+     * @param messages
+     */
+    protected void addMessage(Model model, String... messages) {
+        StringBuilder sb = new StringBuilder();
+        for (String message : messages) {
+            sb.append(message).append(messages.length > 1 ? "<br/>" : "");
+        }
+        model.addAttribute("message", sb.toString());
+    }
+
+    /**
+     * 添加Flash消息
+     *
+     * @param redirectAttributes
+     * @param messages
+     */
+    protected void addMessage(RedirectAttributes redirectAttributes, String... messages) {
+        StringBuilder sb = new StringBuilder();
+        for (String message : messages) {
+            sb.append(message).append(messages.length > 1 ? "<br/>" : "");
+        }
+        redirectAttributes.addFlashAttribute("message", sb.toString());
     }
 
 }

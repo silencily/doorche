@@ -14,8 +14,7 @@ import org.silencer.doorche.support.TreeViewNode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author gejb
@@ -50,5 +49,19 @@ public class PermissionServiceImpl extends AbstractService implements Permission
             treeViewNodes.add(node);
         }
         return treeViewNodes;
+    }
+
+    @Override
+    public List<TsmPermission> listByIds(String[] permissionIdArray) {
+        if (permissionIdArray == null || !(permissionIdArray.length > 0)) {
+            return null;
+        }
+        Integer[] ids = new Integer[permissionIdArray.length];
+        for (int i = 0; i < permissionIdArray.length; i++) {
+            ids[i] = Integer.parseInt(permissionIdArray[i]);
+        }
+        DetachedCriteria dc = DetachedCriteria.forClass(TsmPermission.class);
+        dc.add(Restrictions.in("id", ids));
+        return list(dc);
     }
 }

@@ -21,6 +21,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">
+            <sys:message content="${message}" type="info"/>
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">角色详情</h3>
@@ -34,6 +35,7 @@
                 <form id="infoForm" class="form-horizontal" method="post" action="${ctx}/sm/role/save">
                     <input type="hidden" name="id" value="${role.id}"/>
                     <input type="hidden" name="version" value="${role.version}"/>
+                    <input type="hidden" id="permissionIds" name="permissionIds" />
 
                     <div class="box-body">
                         <div class="form-group">
@@ -114,8 +116,8 @@
     }
     CurrentPage.save = function () {
         var checkedIds = treetable.treetable("obtainChecked");
-        alert(checkedIds);
-        //$.formUtils.post($("#infoForm"));
+        $('#permissionIds').val(checkedIds);
+        $.formUtils.post($("#infoForm"));
     }
     CurrentPage.back = function () {
         $.formUtils.post($("#infoForm"), "${ctx}/sm/role");

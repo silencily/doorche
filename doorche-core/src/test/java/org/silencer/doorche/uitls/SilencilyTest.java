@@ -2,9 +2,7 @@ package org.silencer.doorche.uitls;
 
 import org.junit.Test;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * @author gejb
@@ -31,11 +29,24 @@ public class SilencilyTest {
         }
         System.out.println(propertyName);
     }
+
     @Test
-    public void testMain2(){
+    public void testMain2() {
         Set<String> aSet = new HashSet<String>();
         aSet.add("222");
         aSet.add("222");
         System.out.println(aSet.size());
+    }
+    @Test
+    public void testMain3() {
+        Integer a = new Integer(1);
+        Integer b = new Integer(1);
+        Map<Integer, String> map = new HashMap<Integer, String>();
+        map.put(a, "a");
+        map.put(b, "b");
+        for (Map.Entry<Integer, String> entry : map.entrySet()) {
+            System.out.println("key:" + entry.getKey() + ",value:" + entry.getValue());
+
+        }
     }
 }

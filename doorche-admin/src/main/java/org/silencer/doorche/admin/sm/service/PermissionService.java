@@ -8,6 +8,7 @@ import org.silencer.doorche.support.IService;
 import org.silencer.doorche.support.TreeViewNode;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author gejb
@@ -28,4 +29,12 @@ public interface PermissionService extends IService {
      * @return 权限树
      */
     public List<TreeViewNode> listTreeViewNode(String excludeId);
+
+    /**
+     * 根据id集合查找权限
+     *
+     * @param permissionIdArray 权限id数组
+     * @return 权限集合
+     */
+    public List<TsmPermission> listByIds(String[] permissionIdArray);
 }

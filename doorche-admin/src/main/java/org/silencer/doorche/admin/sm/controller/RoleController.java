@@ -1,5 +1,8 @@
 package org.silencer.doorche.admin.sm.controller;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.silencer.doorche.admin.sm.service.PermissionService;
 import org.silencer.doorche.admin.sm.service.RoleService;
 import org.silencer.doorche.admin.support.web.AbstractAdminController;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -20,6 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping("sm/role")
 public class RoleController extends AbstractAdminController {
+    private static Log logger = LogFactory.getLog(RoleController.class);
     @Autowired
     private RoleService roleService;
     @Autowired
@@ -43,7 +48,30 @@ public class RoleController extends AbstractAdminController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "sm/role/info";
+    }
 
+    @RequestMapping("/save")
+    public String save(Model model, TsmRole role, String permissionIds) {
+        HashSet<TsmPermission> checkedPermissionsSet = null;
+        List<TsmPermission> checkedPermissions = null;
+        if (StringUtils.isNotBlank(permissionIds)) {
+            String[] permissionIdArray = permissionIds.split(",");
+            checkedPermissions = permissionService.listByIds(permissionIdArray);
+            checkedPermissionsSet = new HashSet<TsmPermission>(checkedPermissions);
+            role.setTsmPermissions(checkedPermissionsSet);
+        }
+        roleService.saveOrUpdate(role);
+        List<TsmPermission> permissionList = permissionService.list();
+        try {
+            TreeTableModel<TsmPermission> treeTable = new TreeTableModel<TsmPermission>(permissionList, checkedPermissions, "getId");
+            model.addAttribute("permissionList", treeTable.getNodes());
+        } catch (Exception e) {
+            this.addMessage(model, getMessage("COMMON_SAVE_FAILED"));
+            logger.error(e);
+        }
+        model.addAttribute("role", role);
+        this.addMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
         return "sm/role/info";
     }
 }
