@@ -78,7 +78,14 @@
                                 <td>${role.code}</td>
                                 <td>${fns:getDictValue('ROLE_DATASCOPE',role.dataScope)}</td>
                                 <td>${fns:getDictValue('ROLE_ISDISABLE',role.isDisable)}</td>
-                                <td><a href="#">修改</a></td>
+                                <td>
+                                    <security:hasPermission name="sys:role:edit">
+                                        <a href="${ctx}/sm/role/edit?id=${role.id}">修改</a>
+                                    </security:hasPermission>
+                                    <security:hasPermission name="sys:role:delete">
+                                        <a href="${ctx}/sm/role/delete?id=${role.id}">删除</a>
+                                    </security:hasPermission>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

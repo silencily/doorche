@@ -14,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author gejb
@@ -51,9 +53,26 @@ public class RoleController extends AbstractAdminController {
         return "sm/role/info";
     }
 
+    @RequestMapping("/edit")
+    public String edit(Model model, Integer id) {
+        TsmRole role = roleService.load(TsmRole.class, id);
+        Set<TsmPermission> checkedPermissionsSet = role.getTsmPermissions();
+        model.addAttribute("role", role);
+        List<TsmPermission> permissionList = permissionService.list();
+        List<TsmPermission> checkedPermissions = new ArrayList<TsmPermission>(checkedPermissionsSet);
+        try {
+            TreeTableModel<TsmPermission> treeTable = new TreeTableModel<TsmPermission>(permissionList, checkedPermissions, "getId");
+            model.addAttribute("permissionList", treeTable.getNodes());
+        } catch (Exception e) {
+            logger.error(e);
+            throw new RuntimeException(e);
+        }
+        return "sm/role/info";
+    }
+
     @RequestMapping("/save")
     public String save(Model model, TsmRole role, String permissionIds) {
-        HashSet<TsmPermission> checkedPermissionsSet = null;
+        Set<TsmPermission> checkedPermissionsSet = null;
         List<TsmPermission> checkedPermissions = null;
         if (StringUtils.isNotBlank(permissionIds)) {
             String[] permissionIdArray = permissionIds.split(",");

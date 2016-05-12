@@ -91,7 +91,14 @@
                                 <td>${permission.icon}</td>
                                 <td>${permission.permission}</td>
                                 <td>${fns:getDictValue('PERMISSION_ISSHOW',permission.isShow)}</td>
-                                <td><a href="#">修改</a></td>
+                                <td>
+                                    <security:hasPermission name="sys:permission:edit">
+                                        <a href="${ctx}/sm/permission/edit?id=${permission.id}">修改</a>
+                                    </security:hasPermission>
+                                    <security:hasPermission name="sys:permission:delete">
+                                        <a href="${ctx}/sm/permission/delete?id=${permission.id}">删除</a>
+                                    </security:hasPermission>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
