@@ -11,7 +11,7 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a href="${ctx}/sm/user">列表</a></li>
-        <li><a href="${ctx}/sm/user/add">添加用户</a></li>
+        <li><a href="${ctx}/sm/user/add">用户新增</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">

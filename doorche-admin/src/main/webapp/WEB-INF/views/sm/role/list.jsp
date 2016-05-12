@@ -11,7 +11,7 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a href="${ctx}/sm/role">列表</a></li>
-        <li><a href="${ctx}/sm/role/new">添加角色</a></li>
+        <li><a href="${ctx}/sm/role/new">角色新增</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">
