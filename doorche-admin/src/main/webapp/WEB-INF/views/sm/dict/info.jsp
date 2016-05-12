@@ -49,7 +49,7 @@
                                        value="${dict.typeCode}" placeholder="类型编码"/>
                             </div>
                         </div>
-                        <table class="table table-bordered table-striped table-hover">
+                        <table id="code-table" class="table table-bordered table-striped table-hover">
                             <thead>
                             <tr>
                                 <th>编码名称</th>
@@ -61,11 +61,17 @@
                             <tbody>
                             <c:forEach var="child" items="${children}">
                                 <tr>
-                                    <td>${child.typeName}</td>
-                                    <td>${child.typeCode}</td>
-                                    <td>${child.sort}</td>
                                     <td>
-                                       <a href="">删除</a>
+                                        <input class="form-control input-sm" type="text" value="${child.typeName}"/>
+                                    </td>
+                                    <td>
+                                        <input class="form-control input-sm" type="text" value="${child.typeCode}"/>
+                                    </td>
+                                    <td>
+                                        <input class="form-control input-sm" type="text" value="${child.sort}"/>
+                                    </td>
+                                    <td style="padding: 13px 5px;">
+                                        <a href="">删除</a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -75,6 +81,7 @@
                     <!-- /.box-body -->
 
                     <div class="box-footer" style="text-align: center;">
+                        <button type="button" onclick="CurrentPage.addCode();" class="btn btn-info">新增编码</button>
                         <button type="button" onclick="CurrentPage.save();" class="btn btn-info">保 存</button>
                         <button type="button" onclick="CurrentPage.back();" class="btn btn-info">返 回</button>
                     </div>
@@ -91,9 +98,29 @@
     }
     CurrentPage.save = function () {
         $.formUtils.post($("#infoForm"));
-    }
+    };
     CurrentPage.back = function () {
-        $.formUtils.post($("#infoForm"),"${ctx}/sm/dict");
+        $.formUtils.post($("#infoForm"), "${ctx}/sm/dict");
+    };
+    CurrentPage.addCode = function () {
+        var rowHtml = "<tr>"+
+                        "<td>"+
+                             "<input class='form-control input-sm' type='text'/>"+
+                        "</td>"+
+                        "<td>"+
+                             "<input class='form-control input-sm' type='text'/>"+
+                        "</td>"+
+                        "<td>"+
+                             "<input class='form-control input-sm' type='text'/>"+
+                        "</td>"+
+                        "<td style='padding: 13px 5px;'>"+
+                             "<a href=''>删除</a>"+
+                        "</td>"+
+                      "</tr>";
+        $("#code-table tbody").append(rowHtml);
+    }
+    CurrentPage.deleteCode = function(){
+
     }
 </script>
 </body>
