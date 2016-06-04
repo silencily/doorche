@@ -18,4 +18,11 @@ public interface DictService extends IService {
      * @return
      */
     public List<TsmDict> list();
+
+    /**
+     * 根据parentId查询编码
+     * @param parentId
+     * @return
+     */
+    public List<TsmDict> listByParentId(Integer parentId);
 }

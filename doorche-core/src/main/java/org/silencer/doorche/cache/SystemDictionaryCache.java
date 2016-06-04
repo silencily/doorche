@@ -57,7 +57,7 @@ public class SystemDictionaryCache {
             List<TsmDict> tsmDicts = (List<TsmDict>) criteria.list();
             for (int i = 0; i < tsmDicts.size(); i++) {
                 TsmDict tsmDict = tsmDicts.get(i);
-                Criteria criteria2 = sessionFactory.getCurrentSession().createCriteria(TsmDict.class);
+                Criteria criteria2 = session.createCriteria(TsmDict.class);
                 criteria2.add(Restrictions.eq("parent", tsmDict));
                 criteria2.add(Restrictions.eq("isDeleted", TsmDict.IS_FLAG_NO));
                 criteria2.addOrder(Order.asc("sort"));
@@ -118,7 +118,7 @@ public class SystemDictionaryCache {
         } finally {
             lock.readLock().unlock();
         }
-        return valueWrapper == null ? null : (Map<String, String>) valueWrapper;
+        return valueWrapper == null ? null : (Map<String, String>) valueWrapper.get();
     }
 
     /**

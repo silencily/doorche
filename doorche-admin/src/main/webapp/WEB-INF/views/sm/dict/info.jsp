@@ -20,6 +20,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">
+            <sys:message content="${message}" type="info"/>
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">字典详情</h3>
@@ -30,11 +31,13 @@
                     </div>
                 </div>
                 <!-- /.box-header -->
-                <form id="infoForm" class="form-horizontal" method="post" action="${ctx}/sm/dict/save">
-                    <input type="hidden" name="id" value="${dict.id}"/>
-                    <input type="hidden" name="version" value="${dict.version}"/>
 
-                    <div class="box-body">
+
+                <div class="box-body">
+                    <form id="infoForm" class="form-horizontal" method="post" action="${ctx}/sm/dict/save">
+                        <input type="hidden" id="parentId" name="id" value="${dict.id}"/>
+                        <input type="hidden" name="version" value="${dict.version}"/>
+
                         <div class="form-group">
                             <label for="typeName" class="col-sm-2 control-label">类型名称</label>
 
@@ -49,43 +52,53 @@
                                        value="${dict.typeCode}" placeholder="类型编码"/>
                             </div>
                         </div>
-                        <table id="code-table" class="table table-bordered table-striped table-hover">
-                            <thead>
+                    </form>
+                    <table id="code-table" class="table table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>编码名称</th>
+                            <th>编码值</th>
+                            <th>排序</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="child" items="${children}" varStatus="status">
                             <tr>
-                                <th>编码名称</th>
-                                <th>编码值</th>
-                                <th>排序</th>
-                                <th>操作</th>
+                                <input type="hidden" name="id" value="${child.id}"/>
+                                <input type="hidden" name="version" value="${child.version}"/>
+                                <input type="hidden" name="parentId" value="${dict.id}"/>
+                                <td>
+                                    <input class="form-control input-sm" type="text"
+                                           name="name" value="${child.name}"/>
+                                </td>
+                                <td>
+                                    <input class="form-control input-sm" type="text" name="code"
+                                           value="${child.code}"/>
+                                </td>
+                                <td>
+                                    <input class="form-control input-sm" type="text" name="sort"
+                                           value="${child.sort}"/>
+                                </td>
+                                <td style="padding: 13px 5px;">
+                                    <a href="javascript:void(0);" style="padding-right: 5px;"
+                                       onclick="CurrentPage.deleteCode(this)">删除</a>
+                                    <a href="javascript:void(0);" onclick="CurrentPage.saveCode(this)">保存</a>
+                                </td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            <c:forEach var="child" items="${children}">
-                                <tr>
-                                    <td>
-                                        <input class="form-control input-sm" type="text" value="${child.typeName}"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-control input-sm" type="text" value="${child.typeCode}"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-control input-sm" type="text" value="${child.sort}"/>
-                                    </td>
-                                    <td style="padding: 13px 5px;">
-                                        <a href="">删除</a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- /.box-body -->
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
 
-                    <div class="box-footer" style="text-align: center;">
+                <div class="box-footer" style="text-align: center;">
+                    <c:if test="${not empty dict.id}">
                         <button type="button" onclick="CurrentPage.addCode();" class="btn btn-info">新增编码</button>
-                        <button type="button" onclick="CurrentPage.save();" class="btn btn-info">保 存</button>
-                        <button type="button" onclick="CurrentPage.back();" class="btn btn-info">返 回</button>
-                    </div>
-                </form>
+                    </c:if>
+                    <button type="button" onclick="CurrentPage.save();" class="btn btn-info">保 存</button>
+                    <button type="button" onclick="CurrentPage.back();" class="btn btn-info">返 回</button>
+                </div>
             </div>
         </div>
         <!-- /.tab-pane -->
@@ -103,24 +116,42 @@
         $.formUtils.post($("#infoForm"), "${ctx}/sm/dict");
     };
     CurrentPage.addCode = function () {
-        var rowHtml = "<tr>"+
-                        "<td>"+
-                             "<input class='form-control input-sm' type='text'/>"+
-                        "</td>"+
-                        "<td>"+
-                             "<input class='form-control input-sm' type='text'/>"+
-                        "</td>"+
-                        "<td>"+
-                             "<input class='form-control input-sm' type='text'/>"+
-                        "</td>"+
-                        "<td style='padding: 13px 5px;'>"+
-                             "<a href=''>删除</a>"+
-                        "</td>"+
-                      "</tr>";
+        var trLastIndex = $("#code-table tbody").children("tr").length;
+        var parentId = $("#parentId").val();
+        var rowHtml =
+                "<tr>" +
+                "<input type='hidden' name='parentId' value='" + parentId + "'/>" +
+                "<td>" +
+                "<input class='form-control input-sm' type='text' name='name'/>" +
+                "</td>" +
+                "<td>" +
+                "<input class='form-control input-sm' type='text' name='code'/>" +
+                "</td>" +
+                "<td>" +
+                "<input class='form-control input-sm' type='text' name='sort'/>" +
+                "</td>" +
+                "<td style='padding: 13px 5px;'>" +
+                "<a href='javascript:void(0);' style='padding-right: 5px;' onclick='CurrentPage.deleteCode(this)'>删除</a>" +
+                "<a href='javascript:void(0);' onclick='CurrentPage.saveCode(this)'>保存</a>" +
+                "</td>" +
+                "</tr>";
+
         $("#code-table tbody").append(rowHtml);
     }
-    CurrentPage.deleteCode = function(){
-
+    CurrentPage.deleteCode = function (obj) {
+        var id = $(obj).parents("tr").find("[name='id']").val() || null;
+        if (id == null) {
+            alert("id is null");
+        }
+        $(obj).parents("tr").remove();
+    }
+    CurrentPage.saveCode = function (obj) {
+        var url = "${ctx}/sm/dict/save";
+        var fields = [];
+        $(obj).parents("tr").find("input").each(function(){
+            fields.push({name:this.name,value:this.value});
+        });
+        $.formUtils.dynamicPost(url, fields);
     }
 </script>
 </body>

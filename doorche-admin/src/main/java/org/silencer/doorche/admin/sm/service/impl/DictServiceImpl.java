@@ -28,4 +28,13 @@ public class DictServiceImpl extends AbstractService implements DictService {
         dc.add(Restrictions.isNull("parent"));
         return list(dc);
     }
+
+    @Override
+    public List<TsmDict> listByParentId(Integer parentId) {
+        DetachedCriteria dc = DetachedCriteria.forClass(TsmDict.class);
+        dc.add(Restrictions.eq("parent.id",parentId));
+        return list(dc);
+    }
+
+
 }

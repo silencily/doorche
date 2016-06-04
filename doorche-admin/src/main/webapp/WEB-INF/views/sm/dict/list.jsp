@@ -66,7 +66,6 @@
                         <tr>
                             <th>类型名称</th>
                             <th>类型编码</th>
-                            <th>排序</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -75,7 +74,6 @@
                             <tr>
                                 <td>${dict.typeName}</td>
                                 <td>${dict.typeCode}</td>
-                                <td>${dict.sort}</td>
                                 <td>
                                     <security:hasPermission name="sys:dict:edit">
                                         <a href="${ctx}/sm/dict/edit?id=${dict.id}">修改</a>

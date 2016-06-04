@@ -81,6 +81,7 @@
 
 
     <import resource="applicationContext-security.xml"/>
+    <import resource="applicationContext-activiti.xml"/>
 
 
 </beans>
