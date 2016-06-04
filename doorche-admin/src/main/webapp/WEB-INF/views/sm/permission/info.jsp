@@ -48,8 +48,8 @@
                             <label for="type" class="col-sm-2 control-label">权限类型</label>
 
                             <div class="col-sm-4">
-                                <input id="type" class="form-control" type="text" name="type"
-                                       value="${permission.type}" placeholder="权限类型"/>
+                                <sys:select id="type" name="type" typeCode="PERMISSION_TYPE"
+                                            value="${permission.type}"/>
                             </div>
                         </div>
                         <div class="form-group">

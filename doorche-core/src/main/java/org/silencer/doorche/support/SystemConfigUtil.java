@@ -7,6 +7,8 @@ import org.silencer.doorche.cache.SystemDictionaryCache;
 import org.silencer.doorche.cache.SystemParameterCache;
 import org.silencer.doorche.context.SpringContextHolder;
 
+import java.util.Map;
+
 /**
  * @author gejb
  * @since 2016-04-12
@@ -22,6 +24,17 @@ public class SystemConfigUtil {
     public static String getDictValue(String typeCode, String code) {
         SystemDictionaryCache systemDictionaryCache = SpringContextHolder.getBean(SystemDictionaryCache.class);
         return systemDictionaryCache.getValue(typeCode, code);
+    }
+
+    /**
+     * 根据类型编码获取字典列表
+     *
+     * @param typeCode 类型编码
+     * @return 字典列表
+     */
+    public static Map<String, String> getDict(String typeCode) {
+        SystemDictionaryCache systemDictionaryCache = SpringContextHolder.getBean(SystemDictionaryCache.class);
+        return systemDictionaryCache.getDict(typeCode);
     }
 
     /**

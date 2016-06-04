@@ -19,6 +19,13 @@
         <example>${fns:getDictValue(typeCode,code)}</example>
     </function>
     <function>
+        <description>获取字典列表</description>
+        <name>getDict</name>
+        <function-class>org.silencer.doorche.support.SystemConfigUtil</function-class>
+        <function-signature>java.util.Map getDict(java.lang.String)</function-signature>
+        <example>${fns:getDict(typeCode)}</example>
+    </function>
+    <function>
         <description>获取系统参数</description>
         <name>getParamValue</name>
         <function-class>org.silencer.doorche.support.SystemConfigUtil</function-class>

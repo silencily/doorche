@@ -38,7 +38,7 @@
                             <label for="type" class="col-sm-1 control-label">权限类型</label>
 
                             <div class="col-sm-3">
-                                <search:text id="type" name="type" oper="=" type="java.lang.String" placeholder="权限类型"/>
+                                <search:select id="type" name="type" oper="=" type="java.lang.String" typeCode="PERMISSION_TYPE"/>
                             </div>
                             <label for="permission" class="col-sm-1 control-label">权限标识</label>
 
