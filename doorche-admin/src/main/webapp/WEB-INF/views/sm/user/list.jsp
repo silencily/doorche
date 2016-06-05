@@ -11,7 +11,7 @@
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a href="${ctx}/sm/user">列表</a></li>
-        <li><a href="${ctx}/sm/user/add">用户新增</a></li>
+        <li><a href="${ctx}/sm/user/new">用户新增</a></li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">
@@ -88,7 +88,11 @@
                                 <td>${user.email}</td>
                                 <td>${user.mobile}</td>
                                 <td>${fns:getDictValue('USER_ISDISABLE',user.isDisable)}</td>
-                                <td><a href="#">修改</a></td>
+                                <td>
+                                    <security:hasPermission name="sys:user:edit">
+                                        <a href="${ctx}/sm/user/edit?id=${user.id}">修改</a>
+                                    </security:hasPermission>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
