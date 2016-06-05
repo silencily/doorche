@@ -10,7 +10,7 @@
 <%@ attribute name="headName" type="java.lang.String" required="false" description="头显示名称" %>
 
 <c:set var="key" value="${name}-${oper}"/>
-<select style="${cssStyle}" class="form-control" id="${id}" name="conditions['${key}'].value"">
+<select style="${cssStyle}" class="form-control" id="${id}" name="conditions['${key}'].value">
 <option value="">${headName ne null?headName:'请选择'}</option>
 <c:forEach var="item" items="${fns:getDict(typeCode)}">
     <c:if test="${item.key eq conditions.conditions[key].value}">

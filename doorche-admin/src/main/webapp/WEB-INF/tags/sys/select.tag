@@ -8,7 +8,7 @@
 <%@ attribute name="headName" type="java.lang.String" required="false" description="头显示名称" %>
 <%@ attribute name="value" type="java.lang.String" required="false" description="值" %>
 
-<select id="type" style="${cssStyle}" class="form-control" name="${name}">
+<select id="${id}" style="${cssStyle}" class="form-control" name="${name}">
     <option value="">${headName ne null?headName:'请选择'}</option>
     <c:forEach var="item" items="${fns:getDict(typeCode)}">
         <c:if test="${item.key eq value}">

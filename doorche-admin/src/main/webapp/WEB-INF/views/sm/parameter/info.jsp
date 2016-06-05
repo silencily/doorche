@@ -39,8 +39,8 @@
                             <label for="paramType" class="col-sm-2 control-label">参数类型</label>
 
                             <div class="col-sm-4">
-                                <input id="paramType" class="form-control" type="text" name="paramType"
-                                       value="${parameter.paramType}" placeholder="参数类型"/>
+                                <sys:select id="paramType" name="paramType" typeCode="PARAM_TYPE"
+                                            value="${parameter.paramType}"/>
                             </div>
                             <label for="paramName" class="col-sm-2 control-label">参数名称</label>
 

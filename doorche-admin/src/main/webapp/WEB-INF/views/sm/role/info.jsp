@@ -35,7 +35,7 @@
                 <form id="infoForm" class="form-horizontal" method="post" action="${ctx}/sm/role/save">
                     <input type="hidden" name="id" value="${role.id}"/>
                     <input type="hidden" name="version" value="${role.version}"/>
-                    <input type="hidden" id="permissionIds" name="permissionIds" />
+                    <input type="hidden" id="permissionIds" name="permissionIds"/>
 
                     <div class="box-body">
                         <div class="form-group">
@@ -56,14 +56,14 @@
                             <label for="dataScope" class="col-sm-2 control-label">数据范围</label>
 
                             <div class="col-sm-4">
-                                <input id="dataScope" class="form-control" type="text" name="dataScope"
-                                       value="${role.dataScope}" placeholder="数据范围"/>
+                                <sys:select id="dataScope" name="dataScope" typeCode="ROLE_DATASCOPE"
+                                            value="${role.dataScope}"/>
                             </div>
                             <label for="isDisable" class="col-sm-2 control-label">是否禁用</label>
 
                             <div class="col-sm-4">
-                                <input id="isDisable" class="form-control" type="text" name="isDisable"
-                                       value="${role.isDisable}" placeholder="是否禁用"/>
+                                <sys:select id="isDisable" name="isDisable" typeCode="ROLE_ISDISABLE"
+                                            value="${role.isDisable}"/>
                             </div>
                         </div>
                         <table id="treetable" class="treetable table table-bordered table-striped table-hover">

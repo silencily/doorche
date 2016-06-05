@@ -75,7 +75,7 @@
                             <th>用户编号</th>
                             <th>邮箱</th>
                             <th>手机号</th>
-                            <th>状态</th>
+                            <th>是否禁用</th>
                             <th>操作</th>
                         </tr>
                         </thead>

@@ -31,8 +31,8 @@
                             <label for="paramType" class="col-sm-1 control-label">参数类型</label>
 
                             <div class="col-sm-3">
-                                <search:text id="paramType" name="paramType" oper="like" type="java.lang.String"
-                                             placeholder="参数类型"/>
+                                <search:select id="paramType" name="paramType" oper="=" type="java.lang.String"
+                                               typeCode="PARAM_TYPE"/>
                             </div>
                             <label for="paramName" class="col-sm-1 control-label">参数名称</label>
 

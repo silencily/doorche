@@ -92,8 +92,8 @@
                             <label for="isShow" class="col-sm-2 control-label">是否显示</label>
 
                             <div class="col-sm-4">
-                                <input id="isShow" class="form-control" type="text" name="isShow"
-                                       value="${permission.isShow}" placeholder="是否显示"/>
+                                <sys:select id="isShow" name="isShow" typeCode="PERMISSION_ISSHOW"
+                                            value="${permission.isShow}"/>
                             </div>
                         </div>
                     </div>
