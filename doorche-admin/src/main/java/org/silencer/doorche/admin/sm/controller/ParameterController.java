@@ -45,6 +45,7 @@ public class ParameterController extends AbstractAdminController {
         parameterService.saveOrUpdate(parameter);
 
         model.addAttribute("parameter", parameter);
+        this.addMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
         return "/sm/parameter/info";
     }
 

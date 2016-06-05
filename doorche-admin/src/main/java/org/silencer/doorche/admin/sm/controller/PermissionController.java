@@ -62,7 +62,7 @@ public class PermissionController extends AbstractAdminController {
         }
         permissionService.saveOrUpdate(permission);
         model.addAttribute("permission", permission);
-
+        this.addMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
         return "sm/permission/info";
     }
 }
