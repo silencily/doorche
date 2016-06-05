@@ -37,13 +37,11 @@
 </div>
 <script type="text/javascript">
     $('#modal-${id}').on('show.bs.modal', function (event) {
-        console.log("on show.bs.modal");
         var url = "${url}";
         var excludeId = "${excludeId}";
         //加载树节点数据
         $.post(url, {excludeId: excludeId}, function (data, textStatus, jqXHR) {
             $('#tree-${id}').treeview({data: data,showBorder:false, onNodeSelected: function (event, data) {
-                console.log("onNodeSelected:"+data);
                 $('#modal-${id}').modal('hide');
                 $('#show-${id}').val(data.text);
                 $('#hide-${id}').val(data.id);

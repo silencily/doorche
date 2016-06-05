@@ -5,6 +5,8 @@ package org.silencer.doorche.admin.sm.service.impl;
 
 import org.silencer.doorche.admin.sm.service.UserService;
 import org.silencer.doorche.support.AbstractService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,4 +15,15 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends AbstractService implements UserService {
+    @Value("security.password.default")
+    private String defaultPassword;
+    @Value("security.password.encoder.salt")
+    private String passwordSalt;
+
+    @Override
+    public String getDefaultPassword() {
+        Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+        String encodedPassword = encoder.encodePassword(defaultPassword, passwordSalt);
+        return encodedPassword;
+    }
 }
