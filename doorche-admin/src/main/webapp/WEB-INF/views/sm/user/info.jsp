@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Doorche-Admin | 用户详情</title>
     <meta name="decorator" content="default"/>
 </head>
 
