@@ -2,6 +2,7 @@
 <decorators defaultdir="/WEB-INF/views">
     <!-- 默认装饰页面, 在需要装饰的页面增加<meta name="decorator" content="default"/> -->
     <decorator name="default" page="layouts/default.jsp"/>
+    <decorator name="dialog" page="layouts/dialog.jsp"/>
     <excludes>
         <pattern>/login</pattern>
     </excludes>

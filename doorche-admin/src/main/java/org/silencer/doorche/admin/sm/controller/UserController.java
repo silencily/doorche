@@ -1,7 +1,9 @@
 package org.silencer.doorche.admin.sm.controller;
 
+import org.silencer.doorche.admin.sm.service.RoleService;
 import org.silencer.doorche.admin.sm.service.UserService;
 import org.silencer.doorche.admin.support.web.AbstractAdminController;
+import org.silencer.doorche.entity.TsmRole;
 import org.silencer.doorche.entity.TsmUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ public class UserController extends AbstractAdminController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping
     public String list(Model model) {
@@ -51,6 +55,14 @@ public class UserController extends AbstractAdminController {
         model.addAttribute("user", user);
         this.addMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
         return "/sm/user/info";
+    }
+
+    @RequestMapping("/selectRoles")
+    public String selectRoles(Model model) {
+        List<TsmRole> list = roleService.list(TsmRole.class);
+        model.addAttribute("list", list);
+        return "/sm/user/selectRoles";
+
     }
 
 }

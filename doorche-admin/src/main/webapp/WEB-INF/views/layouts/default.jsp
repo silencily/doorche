@@ -171,8 +171,30 @@ desired effect
         <div class="dot2"></div>
     </div>
 </div>
-
 <!-- ./遮罩层 -->
+
+<!-- 弹出窗口 -->
+<div id="modal-dialog-window" class="modal modal-primary fade">
+    <div id="modal-dialog" class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 id="modal-dialog-title" class="modal-title"></h4>
+            </div>
+            <div id="modal-dialog-content" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button id="modal-dialog-cannel" type="button" class="btn btn-outline pull-left" data-dismiss="modal">取消</button>
+                <button id="modal-dialog-confirm" type="button" class="btn btn-outline">确定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
 <script type="text/javascript">

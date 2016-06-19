@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Doorche-Admin | 用户详情</title>
     <meta name="decorator" content="default"/>
 </head>
 
@@ -131,6 +130,9 @@
         $.formUtils.post($("#infoForm"), "${ctx}/sm/user");
     }
     CurrentPage.addRole = function(){
+        $.windowUtils.openListingWin("${ctx}/sm/user/selectRoles","选择角色",function(data){
+            alert("a:"+data);
+        });
 
     }
 </script>

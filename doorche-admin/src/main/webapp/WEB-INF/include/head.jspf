@@ -28,9 +28,11 @@ apply the skin class to the body tag so the changes take effect.
 
 <!-- jQuery 2.1.4 -->
 <script src="${ctxStatic}/assets/jQuery/jQuery-2.1.4.min.js"></script>
+<script src="${ctxStatic}/assets/jQueryUI/jquery-ui.min.js"></script>
 <!-- Bootstrap 3.3.5 -->
 <script src="${ctxStatic}/assets/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
 <script src="${ctxStatic}/assets/admin/js/app.js"></script>
 
 <script src="${ctxStatic}/assets/admin/js/utils/form.utils.js"></script>
+<script src="${ctxStatic}/assets/admin/js/utils/window.utils.js"></script>

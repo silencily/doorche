@@ -2964,9 +2964,11 @@ table.text-center th {
 }
 .modal-header {
   border-bottom-color: #f4f4f4;
+    padding: 5px 15px;
 }
 .modal-footer {
   border-top-color: #f4f4f4;
+    padding: 5px 15px;
 }
 .modal-primary .modal-header,
 .modal-primary .modal-footer {
@@ -4967,4 +4969,10 @@ table.text-center th {
   .table-responsive > .table tr td {
     white-space: normal !important;
   }
+}
+
+.modal-dialog-iframe{
+    border: none;
+    width: 100%;
+    min-height: 400px;
 }
