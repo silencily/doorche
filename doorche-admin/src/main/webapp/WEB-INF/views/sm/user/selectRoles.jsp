@@ -88,6 +88,9 @@
     CurrentPage.query = function () {
         $.formUtils.post($("#searchForm"));
     }
+    top.$.windowUtils.handleData = function(){
+        return "roles";
+    }
 </script>
 </body>
 </html>
