@@ -58,6 +58,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
             <tr>
+                <th style="width: 20px;"><input type="checkbox" id="ckb-all"/></th>
                 <th>角色名称</th>
                 <th>角色编码</th>
                 <th>数据范围</th>
@@ -67,6 +68,7 @@
             <tbody>
             <c:forEach var="role" items="${list}">
                 <tr>
+                    <td><input type="checkbox" value="${role.id}"/></td>
                     <td>${role.name}</td>
                     <td>${role.code}</td>
                     <td>${fns:getDictValue('ROLE_DATASCOPE',role.dataScope)}</td>
@@ -87,10 +89,45 @@
     }
     CurrentPage.query = function () {
         $.formUtils.post($("#searchForm"));
-    }
-    top.$.windowUtils.handleData = function(){
-        return "roles";
-    }
+    };
+    top.$.windowUtils.handleData = function () {
+        var checkedIds = [];
+        $(".table tbody :checkbox").each(function (idx, element) {
+            var $element= $(element);
+            if($element.is(':checked')){
+                var id = $(element).val();
+                checkedIds.push(id);
+            }
+        });
+        return checkedIds;
+    };
+    $(function () {
+        $("#ckb-all").change(function () {
+            var $ckbAll = $(this);
+            if ($ckbAll.is(':checked')) {
+                $(".table tbody :checkbox").prop("checked", true);
+            } else {
+                $(".table tbody :checkbox").prop("checked", false);
+            }
+        });
+        $(".table tbody :checkbox").change(function () {
+            if ($(this).is(':checked')) {
+                var allChecked = true;
+                $(".table tbody :checkbox").each(function (idx, element) {
+                    if (!$(element).is(':checked')) {
+                        allChecked = false;
+                        return false;
+                    }
+                });
+                if (allChecked) {
+                    $("#ckb-all").prop("checked", true);
+                }
+            } else {
+                $("#ckb-all").prop("checked", false);
+            }
+
+        });
+    });
 </script>
 </body>
 </html>

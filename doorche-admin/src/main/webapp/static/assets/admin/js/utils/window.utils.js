@@ -11,6 +11,7 @@ if (typeof jQuery === 'undefined') {
         windowUtils: {
             settings: {
                 title: "弹出窗口",
+                confirmValidateMsg: "确认未获取返回值！",
                 listable: false,
                 confirmable: true,
                 url: "",
@@ -19,7 +20,7 @@ if (typeof jQuery === 'undefined') {
             },
             _open: function () {
                 $("#modal-dialog-window #modal-dialog-title").text(this.settings.title);
-                $("#modal-dialog-window #modal-dialog-confirm").one("click", this._confirm);
+                $("#modal-dialog-window #modal-dialog-confirm").on("click", this._confirm);
                 var iframeUrl = this.settings.url;
                 if (this.settings.listable) {
                     iframeUrl += "?paginator.page=0";
@@ -32,6 +33,13 @@ if (typeof jQuery === 'undefined') {
             },
             _confirm: function () {
                 var data = $.windowUtils.handleData();
+                if (data == null || data == "") {
+                    $("#modal-dialog-title span").remove();
+                    $.windowUtils.shake();
+                    var message = "<span style='color: #dd4b39;margin-left: 20px;'>" + $.windowUtils.settings.confirmValidateMsg + "</span>";
+                    $("#modal-dialog-title").append(message);
+                    return;
+                }
                 $.windowUtils.settings.onConfirm(data);
                 $("#modal-dialog-window").modal("hide");
             },
@@ -40,11 +48,20 @@ if (typeof jQuery === 'undefined') {
                 this._open();
             },
             openListingWin: function (url, title, callback) {
-                var _options = {url: url, title: title, listable: true, onConfirm: callback};
+                var _options = {url: url, title: title, listable: true, onConfirm: callback, confirmValidateMsg: "至少选择一条记录！"};
                 this.open(_options);
             },
             handleData: function () {
                 return "";
+            },
+            shake:function(){
+                var $panel = $("#modal-dialog");
+                var box_left = ($(window).width() -  $panel.width()) / 2;
+                $panel.css({'left': box_left,'position':'absolute'});
+                for(var i=1; 4>=i; i++){
+                    $panel.animate({left:box_left-(40-10*i)},50);
+                    $panel.animate({left:box_left+2*(40-10*i)},50);
+                }
             }
 
         }
