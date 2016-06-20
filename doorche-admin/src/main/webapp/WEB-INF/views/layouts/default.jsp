@@ -182,7 +182,7 @@ desired effect
                     <span aria-hidden="true">&times;</span></button>
                 <h4 id="modal-dialog-title" class="modal-title"></h4>
             </div>
-            <div id="modal-dialog-content" class="modal-body">
+            <div id="modal-dialog-content" class="modal-body" style="padding: 0;">
 
             </div>
             <div class="modal-footer">
