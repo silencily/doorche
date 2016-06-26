@@ -32,7 +32,7 @@
                 </div>
                 <!-- /.box-header -->
                 <form id="infoForm" class="form-horizontal" method="post" action="${ctx}/sm/user/save">
-                    <input type="hidden" name="id" value="${user.id}"/>
+                    <input id="id" type="hidden" name="id" value="${user.id}"/>
                     <input type="hidden" name="version" value="${user.version}"/>
                     <input type="hidden" name="password" value="${user.password}"/>
 
@@ -130,9 +130,15 @@
     CurrentPage.back = function () {
         $.formUtils.post($("#infoForm"), "${ctx}/sm/user");
     }
-    CurrentPage.addRole = function(){
-        $.windowUtils.openListingWin("${ctx}/sm/user/selectRoles","选择角色",function(data){
-            alert("a:"+data);
+    CurrentPage.addRole = function () {
+        $.windowUtils.openListingWin("${ctx}/sm/user/selectRoles", "选择角色", function (data) {
+            var fields = [];
+            $.each(data, function (n, value) {
+                fields.push({name: "roleIds", value: value});
+            });
+            var id = $("#id").val();
+            fields.push({name: "id", value: id});
+            $.formUtils.dynamicPost("${ctx}/sm/user/assignRoles", fields);
         });
 
     }

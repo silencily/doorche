@@ -8,9 +8,13 @@ import org.silencer.doorche.entity.TsmUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author gejb
@@ -62,7 +66,21 @@ public class UserController extends AbstractAdminController {
         List<TsmRole> list = roleService.list(TsmRole.class);
         model.addAttribute("list", list);
         return "/sm/user/selectRoles";
+    }
 
+    @RequestMapping("/assignRoles")
+    public String assignRoles(Integer id, @RequestParam(value = "roleIds") Integer[] roleIds, RedirectAttributes redirectAttributes) {
+        redirectAttributes.addAttribute("id", id);
+        TsmUser tsmUser = userService.load(TsmUser.class, id);
+        Set<TsmRole> tsmRoles = tsmUser.getTsmRoles();
+        for (Integer roleId : roleIds) {
+            TsmRole role = roleService.load(TsmRole.class,roleId);
+            tsmRoles.add(role);
+        }
+        tsmUser.setTsmRoles(tsmRoles);
+        userService.saveOrUpdate(tsmUser);
+        this.addMessage(redirectAttributes, getMessage("sm.user.assignRoles.suc"));
+        return "redirect:/sm/user/edit";
     }
 
 }
