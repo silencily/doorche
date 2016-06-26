@@ -122,5 +122,9 @@
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -27,6 +27,7 @@
         <log4j.version>1.2.17</log4j.version>
         <ehcache.version>2.10.1</ehcache.version>
         <activiti.version>5.20.0</activiti.version>
+        <hikaricp.version>2.4.6</hikaricp.version>
     </properties>
 
     <dependencyManagement>
@@ -171,6 +172,11 @@
                 <groupId>org.activiti</groupId>
                 <artifactId>activiti-spring</artifactId>
                 <version>${activiti.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zaxxer</groupId>
+                <artifactId>HikariCP</artifactId>
+                <version>${hikaricp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
