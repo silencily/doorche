@@ -16,6 +16,11 @@ public class ConditionsModel {
     private Map<String, Condition> conditions = new LinkedHashMap<String, Condition>(30);
     private Paginator paginator = new Paginator();
 
+    /**
+     * 是否重用查询
+     */
+    private boolean recondition;
+
     public Map<String, Condition> getConditions() {
         return conditions;
     }
@@ -30,5 +35,13 @@ public class ConditionsModel {
 
     public void setPaginator(Paginator paginator) {
         this.paginator = paginator;
+    }
+
+    public boolean isRecondition() {
+        return recondition;
+    }
+
+    public void setRecondition(boolean recondition) {
+        this.recondition = recondition;
     }
 }

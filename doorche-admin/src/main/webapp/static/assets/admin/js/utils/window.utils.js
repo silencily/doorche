@@ -20,10 +20,20 @@ if (typeof jQuery === 'undefined') {
             },
             _open: function () {
                 $("#modal-dialog-window #modal-dialog-title").text(this.settings.title);
-                $("#modal-dialog-window #modal-dialog-confirm").on("click", this._confirm);
+                if (this.settings.confirmable) {
+                    $("#modal-dialog-window #modal-dialog-confirm").removeClass("hide");
+                    $("#modal-dialog-window #modal-dialog-confirm").on("click", this._confirm);
+                } else {
+                    $("#modal-dialog-window #modal-dialog-confirm").addClass("hide");
+                }
                 var iframeUrl = this.settings.url;
+
                 if (this.settings.listable) {
-                    iframeUrl += "?paginator.page=0";
+                    if (iframeUrl.indexOf("?") > 0) {
+                        iframeUrl += "&paginator.page=0";
+                    } else {
+                        iframeUrl += "?paginator.page=0";
+                    }
                 }
                 var iframe = "<iframe class='modal-dialog-iframe' src='" + iframeUrl + "'></iframe>";
                 $("#modal-dialog-window #modal-dialog-content").children().remove();
@@ -54,13 +64,13 @@ if (typeof jQuery === 'undefined') {
             handleData: function () {
                 return "";
             },
-            shake:function(){
+            shake: function () {
                 var $panel = $("#modal-dialog");
-                var box_left = ($(window).width() -  $panel.width()) / 2;
-                $panel.css({'left': box_left,'position':'absolute'});
-                for(var i=1; 4>=i; i++){
-                    $panel.animate({left:box_left-(40-10*i)},50);
-                    $panel.animate({left:box_left+2*(40-10*i)},50);
+                var box_left = ($(window).width() - $panel.width()) / 2;
+                $panel.css({'left': box_left, 'position': 'absolute'});
+                for (var i = 1; 4 >= i; i++) {
+                    $panel.animate({left: box_left - (40 - 10 * i)}, 50);
+                    $panel.animate({left: box_left + 2 * (40 - 10 * i)}, 50);
                 }
             }
 

@@ -30,6 +30,12 @@ public abstract class AbstractControllerSupport {
     public static final String MODEL_ATTRIBUTE_NAME_CONDITIONS = "conditions";
 
     /**
+     * 重用查询条件属性名称，用于将查询条件保存至当前session，当查询时若指定重用查询将此查询条件直接取出</br>
+     * 每次带有查询条件查询时会覆盖上一次缓存的查询条件，重用查询条件值保存一份
+     */
+    public static final String SESSION_ATTRIBUTE_NAME_RECONDITION = "recondition";
+
+    /**
      * 条件上下文管理器
      */
     @Autowired
@@ -45,7 +51,16 @@ public abstract class AbstractControllerSupport {
      */
     @ModelAttribute
     public void populateConditions(ConditionsModel conditions, Model model, HttpServletRequest request) {
-        Map<String, Condition> conditionMap = conditions.getConditions();
+        ConditionsModel conditionsModel = conditions;
+        boolean recondition = conditions.isRecondition();
+        if (recondition) {
+            String servletPath = request.getServletPath();
+            Map<String, ConditionsModel> reconditionModel = (Map<String, ConditionsModel>) request.getSession().getAttribute(SESSION_ATTRIBUTE_NAME_RECONDITION);
+            if (reconditionModel != null && reconditionModel.containsKey(servletPath)) {
+                conditionsModel = reconditionModel.get(servletPath);
+            }
+        }
+        Map<String, Condition> conditionMap = conditionsModel.getConditions();
         List<Condition> lastConditions = new ArrayList<Condition>();
         ConditionContext conditionContext = new ConditionContext();
         for (Condition condition : conditionMap.values()) {
@@ -71,7 +86,7 @@ public abstract class AbstractControllerSupport {
         Collections.sort(lastConditions);
         conditionContext.setConditions(lastConditions.toArray(new Condition[lastConditions.size()]));
 
-        Paginator paginator = conditions.getPaginator();
+        Paginator paginator = conditionsModel.getPaginator();
         if (paginator.isNotPaginated()) {
             //判断是否为两层路径，若为两层则自动进行设置分页
             String servletPath = request.getServletPath();
@@ -83,10 +98,21 @@ public abstract class AbstractControllerSupport {
         }
         conditionContext.setPaginator(paginator);
 
+        if (!paginator.isNotPaginated() || lastConditions.size() > 0) {
+            Map<String, ConditionsModel> reconditionModel = (Map<String, ConditionsModel>) request.getSession().getAttribute(SESSION_ATTRIBUTE_NAME_RECONDITION);
+            if (reconditionModel != null) {
+                reconditionModel.clear();
+            } else {
+                reconditionModel = new HashMap<String, ConditionsModel>();
+            }
+            reconditionModel.put(request.getServletPath(), conditionsModel);
+            request.getSession().setAttribute(SESSION_ATTRIBUTE_NAME_RECONDITION, reconditionModel);
+        }
+
         conditionContextManager.setConditionContext(conditionContext);
 
         //保存条件模型
-        model.addAttribute(MODEL_ATTRIBUTE_NAME_CONDITIONS, conditions);
+        model.addAttribute(MODEL_ATTRIBUTE_NAME_CONDITIONS, conditionsModel);
     }
 
     /**

@@ -16,6 +16,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">
+            <sys:message content="${message}" type="info"/>
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">查询条件</h3>

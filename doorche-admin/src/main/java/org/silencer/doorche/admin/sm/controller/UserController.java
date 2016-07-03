@@ -62,7 +62,8 @@ public class UserController extends AbstractAdminController {
     }
 
     @RequestMapping("/selectRoles")
-    public String selectRoles(Model model) {
+    public String selectRoles(Model model ,Integer id) {
+
         List<TsmRole> list = roleService.list(TsmRole.class);
         model.addAttribute("list", list);
         return "/sm/user/selectRoles";

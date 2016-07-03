@@ -109,7 +109,12 @@
                     <!-- /.box-body -->
 
                     <div class="box-footer" style="text-align: center;">
-                        <button type="button" onclick="CurrentPage.addRole();" class="btn btn-info">添加角色</button>
+                        <c:if test="${not empty user.id}">
+                            <security:hasPermission name="sys:user:selectRoles">
+                                <button type="button" onclick="CurrentPage.addRole();" class="btn btn-info">添加角色
+                                </button>
+                            </security:hasPermission>
+                        </c:if>
                         <button type="button" onclick="CurrentPage.save();" class="btn btn-info">保 存</button>
                         <button type="button" onclick="CurrentPage.back();" class="btn btn-info">返 回</button>
                     </div>
@@ -131,7 +136,8 @@
         $.formUtils.post($("#infoForm"), "${ctx}/sm/user");
     }
     CurrentPage.addRole = function () {
-        $.windowUtils.openListingWin("${ctx}/sm/user/selectRoles", "选择角色", function (data) {
+        var userId = $("#id").val();
+        $.windowUtils.openListingWin("${ctx}/sm/user/selectRoles?id=" + userId, "选择角色", function (data) {
             var fields = [];
             $.each(data, function (n, value) {
                 fields.push({name: "roleIds", value: value});

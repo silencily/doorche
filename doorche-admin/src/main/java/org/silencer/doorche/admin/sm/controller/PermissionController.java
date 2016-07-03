@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -64,5 +65,17 @@ public class PermissionController extends AbstractAdminController {
         model.addAttribute("permission", permission);
         this.addMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
         return "sm/permission/info";
+    }
+
+    @RequestMapping("delete")
+    public String delete(Integer id,RedirectAttributes redirectAttributes) {
+        TsmPermission permission = permissionService.load(TsmPermission.class, id);
+        if (permission.getTsmRoles() != null && permission.getTsmRoles().size() > 0) {
+            this.addMessage(redirectAttributes, getMessage("sm.permission.delete.inuse"));
+        } else {
+            permissionService.delete(TsmPermission.class, id);
+            this.addMessage(redirectAttributes, getMessage("COMMON_DELETE_SUCCESS"));
+        }
+        return "redirect:/sm/permission?recondition=true";
     }
 }
