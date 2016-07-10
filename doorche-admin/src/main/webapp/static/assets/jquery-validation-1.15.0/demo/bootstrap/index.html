@@ -30,7 +30,7 @@
 							<div class="form-group">
 								<label class="col-sm-4 control-label" for="firstname">First name</label>
 								<div class="col-sm-5">
-									<input type="text" class="form-control" id="firstname" name="firstname" placeholder="First name" />
+									<input type="text" class="form-control required" id="firstname" name="firstname" placeholder="First name" required/>
 								</div>
 							</div>
 
@@ -167,7 +167,9 @@
 		$( document ).ready( function () {
 			$( "#signupForm" ).validate( {
 				rules: {
-					firstname: "required",
+					firstname: {
+                        required:false
+                    },
 					lastname: "required",
 					username: {
 						required: true,

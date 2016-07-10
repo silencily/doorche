@@ -20,6 +20,9 @@ if (typeof jQuery === 'undefined') {
                 if (url) {
                     $form.attr("action", url);
                 }
+                if(!$form.valid()){
+                    return;
+                }
                 $form.submit();
 
                 if (closeOverlay) {
@@ -47,4 +50,27 @@ if (typeof jQuery === 'undefined') {
         }
     });
 }(jQuery);
+//form validate
+$(document).ready(function(){
+    $( "form" ).validate( {
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+            // Add the `help-block` class to the error element
+            error.addClass( "help-block" );
+
+            if ( element.prop( "type" ) === "checkbox" ) {
+                error.insertAfter( element.parent( "label" ) );
+            } else {
+                error.insertAfter( element );
+            }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+            $( element ).parent().addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $( element ).parent().addClass( "has-success" ).removeClass( "has-error" );
+        }
+    } );
+
+});
 

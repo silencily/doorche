@@ -43,13 +43,13 @@
 
                             <div class="col-sm-4">
                                 <input id="typeName" class="form-control" type="text" name="typeName"
-                                       value="${dict.typeName}" placeholder="类型名称"/>
+                                       value="${dict.typeName}" placeholder="类型名称" required/>
                             </div>
                             <label for="typeCode" class="col-sm-2 control-label">类型编码</label>
 
                             <div class="col-sm-4">
                                 <input id="typeCode" class="form-control" type="text" name="typeCode"
-                                       value="${dict.typeCode}" placeholder="类型编码"/>
+                                       value="${dict.typeCode}" placeholder="类型编码" required/>
                             </div>
                         </div>
                     </form>
@@ -153,6 +153,7 @@
         });
         $.formUtils.dynamicPost(url, fields);
     }
+
 </script>
 </body>
 </html>
