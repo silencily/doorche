@@ -100,7 +100,6 @@ public class DoorchePermission implements Comparable<DoorchePermission> {
         }
     }
 
-    @Override
     public int compareTo(DoorchePermission o) {
         return this.getSort() - o.getSort();
     }

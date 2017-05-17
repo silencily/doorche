@@ -25,7 +25,6 @@ public class DoorcheUserDetailsService implements UserDetailsService {
     }
 
     @Transactional
-    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDetails userDetails;
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(TsmUser.class);

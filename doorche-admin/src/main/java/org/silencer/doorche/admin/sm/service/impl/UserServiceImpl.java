@@ -20,7 +20,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Value("security.password.encoder.salt")
     private String passwordSalt;
 
-    @Override
     public String getDefaultPassword() {
         Md5PasswordEncoder encoder = new Md5PasswordEncoder();
         String encodedPassword = encoder.encodePassword(defaultPassword, passwordSalt);

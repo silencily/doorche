@@ -13,7 +13,6 @@ public class LocalConditionContextManager implements ConditionContextManager {
 
     private static final ThreadLocal<ConditionContext> conditionContext = new ThreadLocal<ConditionContext>();
 
-    @Override
     public ConditionContext getConditionContext() {
         ConditionContext cc = conditionContext.get();
         if (cc == null) {
@@ -23,23 +22,19 @@ public class LocalConditionContextManager implements ConditionContextManager {
         return cc;
     }
 
-    @Override
     public void setConditionContext(ConditionContext context) {
         conditionContext.set(context);
     }
 
-    @Override
     public boolean isConcealQuery() {
         return getConditionContext().isConcealQuery();
     }
 
-    @Override
     public void concealQuery() {
         getConditionContext().setConcealQuery(true);
 
     }
 
-    @Override
     public void recoverQuery() {
         getConditionContext().setConcealQuery(false);
     }

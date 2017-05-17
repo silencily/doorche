@@ -36,7 +36,6 @@ public abstract class AbstractService implements IService {
     }
 
     @Transactional(readOnly = true)
-    @Override
     public <T extends AbstractEntity> List<T> list(Class<T> clazz) {
         DetachedCriteria dc = DetachedCriteria.forClass(clazz);
         return list(dc);
@@ -55,39 +54,32 @@ public abstract class AbstractService implements IService {
         return (List<T>) hibernateTemplate.findByCriteria(dc);
     }
 
-    @Override
     public void save(AbstractEntity entity) {
         hibernateTemplate.save(entity);
     }
 
-    @Override
     public void update(AbstractEntity entity) {
         hibernateTemplate.update(entity);
     }
 
-    @Override
     public void saveOrUpdate(AbstractEntity entity) {
         hibernateTemplate.saveOrUpdate(entity);
     }
 
     @Transactional(readOnly = true)
-    @Override
     public <T extends AbstractEntity> T load(Class<T> clazz, Integer id) {
         return hibernateTemplate.load(clazz, id);
     }
 
     @Transactional(readOnly = true)
-    @Override
     public <T extends AbstractEntity> T get(Class<T> clazz, Integer id) {
         return hibernateTemplate.get(clazz, id);
     }
 
-    @Override
     public void merge(AbstractEntity entity) {
         hibernateTemplate.merge(entity);
     }
 
-    @Override
     public <T extends AbstractEntity> void delete(Class<T> clazz, Integer id) {
         AbstractEntity entity = load(clazz, id);
         entity.setIsDeleted(AbstractEntity.IS_FLAG_YES);

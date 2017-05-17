@@ -21,7 +21,6 @@ public class DoorcheGrantedAuthority implements GrantedAuthority {
         this.role = role;
     }
 
-    @Override
     public String getAuthority() {
         return role;
     }

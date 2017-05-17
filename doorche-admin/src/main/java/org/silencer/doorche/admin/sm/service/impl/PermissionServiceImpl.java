@@ -23,14 +23,12 @@ import java.util.*;
 @Transactional
 @Service
 public class PermissionServiceImpl extends AbstractService implements PermissionService {
-    @Override
     public List<TsmPermission> list() {
         DetachedCriteria dc = DetachedCriteria.forClass(TsmPermission.class);
         dc.addOrder(Order.asc("sort"));
         return list(dc);
     }
 
-    @Override
     public List<TreeViewNode> listTreeViewNode(String excludeId) {
         List<TreeViewNode> treeViewNodes = new ArrayList<TreeViewNode>();
         DetachedCriteria dc = DetachedCriteria.forClass(TsmPermission.class);
@@ -51,7 +49,6 @@ public class PermissionServiceImpl extends AbstractService implements Permission
         return treeViewNodes;
     }
 
-    @Override
     public List<TsmPermission> listByIds(String[] permissionIdArray) {
         if (permissionIdArray == null || !(permissionIdArray.length > 0)) {
             return null;
