@@ -47,7 +47,7 @@
 
                             <div class="col-sm-4">
                                 <input id="paramName" class="form-control" type="text" name="paramName"
-                                       value="${parameter.paramName}" placeholder="参数名称"/>
+                                       value="${parameter.paramName}" placeholder="参数名称" required/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -55,13 +55,13 @@
 
                             <div class="col-sm-4">
                                 <input id="paramKey" class="form-control" type="text" name="paramKey"
-                                       value="${parameter.paramKey}" placeholder="参数编码"/>
+                                       value="${parameter.paramKey}" placeholder="参数编码" required/>
                             </div>
                             <label for="paramValue" class="col-sm-2 control-label">参数值</label>
 
                             <div class="col-sm-4">
                                 <input id="paramValue" class="form-control" type="text" name="paramValue"
-                                       value="${parameter.paramValue}" placeholder="参数值"/>
+                                       value="${parameter.paramValue}" placeholder="参数值" required/>
                             </div>
                         </div>
                         <div class="form-group">

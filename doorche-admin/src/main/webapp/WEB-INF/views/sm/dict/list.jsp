@@ -15,6 +15,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">
+            <sys:message content="${message}" type="info"/>
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">查询条件</h3>
@@ -52,7 +53,7 @@
             </div>
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title">参数列表</h3>
+                    <h3 class="box-title">字典列表</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i

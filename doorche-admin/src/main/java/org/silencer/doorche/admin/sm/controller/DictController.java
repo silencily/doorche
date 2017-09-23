@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -69,4 +70,14 @@ public class DictController extends AbstractAdminController {
         model.addAttribute("children", children);
         return "sm/dict/info";
     }
+
+    @RequestMapping("/delete")
+    public String delete(Integer id, RedirectAttributes redirectAttributes) {
+
+        dictService.delete(id);
+        this.addMessage(redirectAttributes, getMessage("COMMON_DELETE_SUCCESS"));
+
+        return "redirect:/sm/dict?recondition=true";
+    }
+
 }

@@ -15,14 +15,23 @@ import java.util.List;
 public interface DictService extends IService {
     /**
      * 查询字典列表，只包含第一层级
+     *
      * @return
      */
     public List<TsmDict> list();
 
     /**
      * 根据parentId查询编码
+     *
      * @param parentId
      * @return
      */
     public List<TsmDict> listByParentId(Integer parentId);
+
+    /**
+     * 删除字典父类，同时删除孩子节点数据
+     *
+     * @param id 字典id
+     */
+    public void delete(Integer id);
 }
