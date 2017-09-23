@@ -15,7 +15,7 @@
     <input type="text" style="${cssStyle}" name="${showName}" class="form-control" id="show-${id}"
            placeholder="${placeholder}" value="${showValue}" readonly>
     <span class="input-group-btn">
-        <button id="btn-select-${id}" class="btn btn-default" type="button" data-toggle="modal"
+        <button id="btn-select-${id}" class="btn btn-default form-control" type="button" data-toggle="modal"
                 data-target="#modal-${id}">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
         </button>
