@@ -25,17 +25,14 @@ public class PermissionUrlVoter implements AccessDecisionVoter<FilterInvocation>
 
     public static final String ROOT_URL = "/";
 
-    @Override
     public boolean supports(ConfigAttribute attribute) {
         return false;
     }
 
-    @Override
     public boolean supports(Class<?> clazz) {
         return true;
     }
 
-    @Override
     public int vote(Authentication authentication, FilterInvocation object, Collection<ConfigAttribute> attributes) {
         int result = ACCESS_ABSTAIN;
         String accessUrl = object.getRequestUrl();

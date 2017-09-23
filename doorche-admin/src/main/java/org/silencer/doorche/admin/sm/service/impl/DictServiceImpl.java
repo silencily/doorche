@@ -22,14 +22,12 @@ import java.util.List;
 public class DictServiceImpl extends AbstractService implements DictService {
 
     @Transactional(readOnly = true)
-    @Override
     public List<TsmDict> list() {
         DetachedCriteria dc = DetachedCriteria.forClass(TsmDict.class);
         dc.add(Restrictions.isNull("parent"));
         return list(dc);
     }
 
-    @Override
     public List<TsmDict> listByParentId(Integer parentId) {
         DetachedCriteria dc = DetachedCriteria.forClass(TsmDict.class);
         dc.add(Restrictions.eq("parent.id", parentId));

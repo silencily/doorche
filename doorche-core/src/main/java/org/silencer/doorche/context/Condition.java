@@ -249,7 +249,6 @@ public class Condition implements Serializable, Comparable<Condition> {
         }
     }
 
-    @Override
     public int compareTo(Condition o) {
         if (o == null) {
             throw new NullPointerException("比较Condition顺序时,参数是null");
