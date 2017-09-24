@@ -390,5 +390,14 @@ public class HibernateTemplate {
         session.merge(entity);
     }
 
+    /**
+     * 物理删除实体
+     * @param entity
+     */
+    public void delete(AbstractEntity entity){
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(entity);
+    }
+
 
 }

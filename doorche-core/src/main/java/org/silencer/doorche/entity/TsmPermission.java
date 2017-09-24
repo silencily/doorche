@@ -97,7 +97,7 @@ public class TsmPermission extends AbstractEntity {
         this.isShow = isShow;
     }
 
-    @ManyToMany(mappedBy = "tsmPermissions",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "tsmPermissions", fetch = FetchType.LAZY)
     public Set<TsmRole> getTsmRoles() {
         return tsmRoles;
     }

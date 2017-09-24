@@ -85,4 +85,9 @@ public abstract class AbstractService implements IService {
         entity.setIsDeleted(AbstractEntity.IS_FLAG_YES);
         update(entity);
     }
+
+    public <T extends AbstractEntity> void forceDelete(Class<T> clazz, Integer id) {
+        AbstractEntity entity = load(clazz, id);
+        hibernateTemplate.delete(entity);
+    }
 }

@@ -92,4 +92,13 @@ public interface IService {
      * @param <T>   实体类泛型
      */
     public <T extends AbstractEntity> void delete(Class<T> clazz, Integer id);
+
+    /**
+     * 删除实体（物理删除）
+     *
+     * @param clazz 实体类
+     * @param id    实体对象id
+     * @param <T>   实体类泛型
+     */
+    public <T extends AbstractEntity> void forceDelete(Class<T> clazz, Integer id);
 }
