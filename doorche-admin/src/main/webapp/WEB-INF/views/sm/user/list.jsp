@@ -93,6 +93,9 @@
                                     <security:hasPermission name="sys:user:edit">
                                         <a href="${ctx}/sm/user/edit?id=${user.id}">修改</a>
                                     </security:hasPermission>
+                                    <security:hasPermission name="sys:user:delete">
+                                        <a href="${ctx}/sm/user/delete?id=${user.id}" onclick="return $.windowBox.confirm('确认删除该用户吗？',this.href)">删除</a>
+                                    </security:hasPermission>
                                 </td>
                             </tr>
                         </c:forEach>

@@ -8,11 +8,13 @@ import org.silencer.doorche.admin.sm.service.RoleService;
 import org.silencer.doorche.admin.support.web.AbstractAdminController;
 import org.silencer.doorche.entity.TsmPermission;
 import org.silencer.doorche.entity.TsmRole;
+import org.silencer.doorche.entity.TsmUser;
 import org.silencer.doorche.support.TreeTableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -92,5 +94,21 @@ public class RoleController extends AbstractAdminController {
         model.addAttribute("role", role);
         this.addSuccessMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
         return "sm/role/info";
+    }
+
+    @RequestMapping("delete")
+    public String delete(Integer id, RedirectAttributes redirectAttributes) {
+        TsmRole tsmRole = roleService.load(TsmRole.class, id);
+        Set<TsmUser> tsmUsers = tsmRole.getTsmUsers();
+        if (tsmUsers != null && tsmUsers.size() > 0) {
+            this.addErrorMessage(redirectAttributes, getMessage("sm.role.delete.inuse"));
+        } else {
+            //权限关系置空
+            tsmRole.setTsmPermissions(null);
+            roleService.saveOrUpdate(tsmRole);
+            roleService.delete(TsmRole.class, id);
+            this.addSuccessMessage(redirectAttributes, getMessage("COMMON_DELETE_SUCCESS"));
+        }
+        return "redirect:/sm/role?recondition=true";
     }
 }

@@ -62,7 +62,7 @@ public class UserController extends AbstractAdminController {
     }
 
     @RequestMapping("/selectRoles")
-    public String selectRoles(Model model ,Integer id) {
+    public String selectRoles(Model model, Integer id) {
 
         List<TsmRole> list = roleService.list(TsmRole.class);
         model.addAttribute("list", list);
@@ -75,13 +75,24 @@ public class UserController extends AbstractAdminController {
         TsmUser tsmUser = userService.load(TsmUser.class, id);
         Set<TsmRole> tsmRoles = tsmUser.getTsmRoles();
         for (Integer roleId : roleIds) {
-            TsmRole role = roleService.load(TsmRole.class,roleId);
+            TsmRole role = roleService.load(TsmRole.class, roleId);
             tsmRoles.add(role);
         }
         tsmUser.setTsmRoles(tsmRoles);
         userService.saveOrUpdate(tsmUser);
         this.addSuccessMessage(redirectAttributes, getMessage("sm.user.assignRoles.suc"));
         return "redirect:/sm/user/edit";
+    }
+
+    @RequestMapping("delete")
+    public String delete(Integer id, RedirectAttributes redirectAttributes) {
+        TsmUser tsmUser = userService.load(TsmUser.class, id);
+        //角色置空
+        tsmUser.setTsmRoles(null);
+        userService.saveOrUpdate(tsmUser);
+        userService.delete(TsmUser.class, id);
+        this.addSuccessMessage(redirectAttributes, getMessage("COMMON_DELETE_SUCCESS"));
+        return "redirect:/sm/user?recondition=true";
     }
 
 }
