@@ -20,7 +20,7 @@ if (typeof jQuery === 'undefined') {
                 if (url) {
                     $form.attr("action", url);
                 }
-                if(!$form.valid()){
+                if (!$form.valid()) {
                     return;
                 }
                 $form.submit();
@@ -40,7 +40,9 @@ if (typeof jQuery === 'undefined') {
                 if (!target) {
                     target = '_self';
                 }
-                $('<form>', {method: 'post', action: url, target: target}).append(params).submit();
+                var $form = $('<form>', {method: 'post', action: url, target: target}).append(params);
+                $(document.body).append($form);
+                $form.submit();
                 if (closeOverlay) {
                     return;
                 }
@@ -51,26 +53,26 @@ if (typeof jQuery === 'undefined') {
     });
 }(jQuery);
 //form validate
-$(document).ready(function(){
-    $( "form" ).validate( {
+$(document).ready(function () {
+    $("form").validate({
         errorElement: "em",
-        errorPlacement: function ( error, element ) {
+        errorPlacement: function (error, element) {
             // Add the `help-block` class to the error element
-            error.addClass( "help-block" );
+            error.addClass("help-block");
 
-            if ( element.prop( "type" ) === "checkbox" ) {
-                error.insertAfter( element.parent( "label" ) );
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.parent("label"));
             } else {
-                error.insertAfter( element );
+                error.insertAfter(element);
             }
         },
-        highlight: function ( element, errorClass, validClass ) {
-            $( element ).parent().addClass( "has-error" ).removeClass( "has-success" );
+        highlight: function (element, errorClass, validClass) {
+            $(element).parent().addClass("has-error").removeClass("has-success");
         },
         unhighlight: function (element, errorClass, validClass) {
-            $( element ).parent().addClass( "has-success" ).removeClass( "has-error" );
+            $(element).parent().addClass("has-success").removeClass("has-error");
         }
-    } );
+    });
 
 });
 

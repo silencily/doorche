@@ -33,8 +33,6 @@
                 <!-- /.box-header -->
                 <form id="infoForm" class="form-horizontal" method="post" action="${ctx}/sm/user/save">
                     <input id="id" type="hidden" name="id" value="${user.id}"/>
-                    <input type="hidden" name="version" value="${user.version}"/>
-                    <input type="hidden" name="password" value="${user.password}"/>
 
                     <div class="box-body">
                         <div class="form-group">
@@ -98,7 +96,7 @@
                                     <td>${fns:getDictValue('ROLE_ISDISABLE',role.isDisable)}</td>
                                     <td>
                                         <security:hasPermission name="sys:user:deleteRole">
-                                            <a href="${ctx}/sm/user/deleteRole?id=${role.id}">删除</a>
+                                            <a href="${ctx}/sm/user/deleteRole?id=${user.id}&roleId=${role.id}" onclick="return $.windowBox.confirm('确认删除该角色分配吗？',this.href)">删除</a>
                                         </security:hasPermission>
                                     </td>
                                 </tr>
