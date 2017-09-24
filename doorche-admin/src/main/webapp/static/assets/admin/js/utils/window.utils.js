@@ -58,7 +58,13 @@ if (typeof jQuery === 'undefined') {
                 this._open();
             },
             openListingWin: function (url, title, callback) {
-                var _options = {url: url, title: title, listable: true, onConfirm: callback, confirmValidateMsg: "至少选择一条记录！"};
+                var _options = {
+                    url: url,
+                    title: title,
+                    listable: true,
+                    onConfirm: callback,
+                    confirmValidateMsg: "至少选择一条记录！"
+                };
                 this.open(_options);
             },
             handleData: function () {
@@ -74,6 +80,32 @@ if (typeof jQuery === 'undefined') {
                 }
             }
 
+        },
+        windowBox: {
+            alert: function (message, title, size, callback) {
+                bootbox.alert({
+                    size: size,
+                    title: title ? title : message,
+                    message: title ? message : null,
+                    callback: callback
+                });
+            },
+            confirm: function (message, href) {
+                bootbox.confirm({
+                    size: "small",
+                    message: message,
+                    callback: function (result) {
+                        if (result) {
+                            if (typeof href == 'function') {
+                                href();
+                            } else {
+                                window.location = href;
+                            }
+                        }
+                    }
+                });
+                return false;
+            }
         }
 
     });

@@ -4977,3 +4977,7 @@ table.text-center th {
     width: 100%;
     min-height: 400px;
 }
+
+.bootbox-confirm .modal-dialog{
+  margin-top: 20%;
+}

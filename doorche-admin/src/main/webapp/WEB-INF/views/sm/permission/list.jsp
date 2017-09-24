@@ -97,7 +97,7 @@
                                         <a href="${ctx}/sm/permission/edit?id=${permission.id}">修改</a>
                                     </security:hasPermission>
                                     <security:hasPermission name="sys:permission:delete">
-                                        <a href="${ctx}/sm/permission/delete?id=${permission.id}">删除</a>
+                                        <a href="${ctx}/sm/permission/delete?id=${permission.id}" onclick="return $.windowBox.confirm('确认删除该权限吗？',this.href)">删除</a>
                                     </security:hasPermission>
                                 </td>
                             </tr>

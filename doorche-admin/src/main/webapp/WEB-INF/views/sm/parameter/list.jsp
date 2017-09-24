@@ -92,7 +92,7 @@
                                         <a href="${ctx}/sm/parameter/edit?id=${parameter.id}">修改</a>
                                     </security:hasPermission>
                                     <security:hasPermission name="sys:parameter:delete">
-                                        <a href="${ctx}/sm/parameter/delete?id=${parameter.id}">删除</a>
+                                        <a href="${ctx}/sm/parameter/delete?id=${parameter.id}" onclick="return $.windowBox.confirm('确认删除该系统参数吗？',this.href)">删除</a>
                                     </security:hasPermission>
                                 </td>
                             </tr>
