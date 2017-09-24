@@ -57,7 +57,7 @@ public class DictController extends AbstractAdminController {
             model.addAttribute("dict", dict);
             model.addAttribute("children", children);
         }
-        this.addMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
+        this.addSuccessMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
 
         return "sm/dict/info";
     }
@@ -75,7 +75,7 @@ public class DictController extends AbstractAdminController {
     public String delete(Integer id, RedirectAttributes redirectAttributes) {
 
         dictService.delete(id);
-        this.addMessage(redirectAttributes, getMessage("COMMON_DELETE_SUCCESS"));
+        this.addSuccessMessage(redirectAttributes, getMessage("COMMON_DELETE_SUCCESS"));
 
         return "redirect:/sm/dict?recondition=true";
     }

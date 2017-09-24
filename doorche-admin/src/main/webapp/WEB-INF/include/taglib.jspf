@@ -7,5 +7,6 @@
 <%@ taglib prefix='search' tagdir="/WEB-INF/tags/search/" %>
 <%@ taglib prefix='tree' tagdir="/WEB-INF/tags/tree/" %>
 <%@ taglib prefix='sys' tagdir="/WEB-INF/tags/sys/" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:set var="ctxStatic" value="${pageContext.request.contextPath}/static"/>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>

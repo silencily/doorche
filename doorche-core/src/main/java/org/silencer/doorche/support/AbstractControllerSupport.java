@@ -141,28 +141,72 @@ public abstract class AbstractControllerSupport {
      * 添加Model消息
      *
      * @param model
+     * @param type     消息类型：info、success、warning、danger
      * @param messages
      */
-    protected void addMessage(Model model, String... messages) {
+    private void addMessage(Model model, String type, String... messages) {
         StringBuilder sb = new StringBuilder();
         for (String message : messages) {
             sb.append(message).append(messages.length > 1 ? "<br/>" : "");
         }
         model.addAttribute("message", sb.toString());
+        model.addAttribute("messageType", type);
+    }
+
+    /**
+     * 添加成功Model消息
+     *
+     * @param model
+     * @param messages
+     */
+    protected void addSuccessMessage(Model model, String... messages) {
+        addMessage(model, "success", messages);
+    }
+
+    /**
+     * 添加失败model消息
+     *
+     * @param model
+     * @param messages
+     */
+    protected void addErrorMessage(Model model, String... messages) {
+        addMessage(model, "danger", messages);
+    }
+
+    /**
+     * 添加成功Flash消息
+     *
+     * @param redirectAttributes
+     * @param messages
+     */
+    protected void addSuccessMessage(RedirectAttributes redirectAttributes, String... messages) {
+        addMessage(redirectAttributes, "success", messages);
     }
 
     /**
      * 添加Flash消息
      *
      * @param redirectAttributes
+     * @param type
      * @param messages
      */
-    protected void addMessage(RedirectAttributes redirectAttributes, String... messages) {
+    private void addMessage(RedirectAttributes redirectAttributes, String type, String... messages) {
         StringBuilder sb = new StringBuilder();
         for (String message : messages) {
             sb.append(message).append(messages.length > 1 ? "<br/>" : "");
         }
         redirectAttributes.addFlashAttribute("message", sb.toString());
+        redirectAttributes.addFlashAttribute("messageType", type);
+    }
+
+    /**
+     * 添加错误Flash消息
+     *
+     * @param redirectAttributes
+     * @param messages
+     */
+    protected void addErrorMessage(RedirectAttributes redirectAttributes, String... messages) {
+        addMessage(redirectAttributes, "error", messages);
     }
 
 }

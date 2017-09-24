@@ -105,9 +105,11 @@ if (typeof jQuery === 'undefined') {
                     }
                 });
                 return false;
+            },
+            prompt: function (message, callback) {
+                bootbox.prompt(message, callback);
             }
         }
-
     });
 
 }(jQuery);

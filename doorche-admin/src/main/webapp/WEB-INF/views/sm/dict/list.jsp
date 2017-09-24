@@ -15,7 +15,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">
-            <sys:message content="${message}" type="info"/>
+            <sys:message content="${message}" type="${messageType}"/>
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">查询条件</h3>
@@ -80,7 +80,7 @@
                                         <a href="${ctx}/sm/dict/edit?id=${dict.id}">修改</a>
                                     </security:hasPermission>
                                     <security:hasPermission name="sys:dict:delete">
-                                        <a href="${ctx}/sm/dict/delete?id=${dict.id}">删除</a>
+                                        <a href="${ctx}/sm/dict/delete?id=${dict.id}" onclick="return $.windowBox.confirm('确认删除该数据字典吗？',this.href)">删除</a>
                                     </security:hasPermission>
                                 </td>
                             </tr>

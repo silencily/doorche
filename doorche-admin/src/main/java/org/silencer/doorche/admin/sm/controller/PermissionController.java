@@ -52,6 +52,13 @@ public class PermissionController extends AbstractAdminController {
         return treeViewNodes;
     }
 
+    @RequestMapping("/edit")
+    public String edit(Model model, Integer id) {
+        TsmPermission permission = permissionService.load(TsmPermission.class, id);
+        model.addAttribute("permission", permission);
+        return "sm/permission/info";
+    }
+
     @RequestMapping("/save")
     public String save(TsmPermission permission, Integer parentId, Model model) {
 
@@ -63,7 +70,7 @@ public class PermissionController extends AbstractAdminController {
         }
         permissionService.saveOrUpdate(permission);
         model.addAttribute("permission", permission);
-        this.addMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
+        this.addSuccessMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
         return "sm/permission/info";
     }
 
@@ -71,10 +78,10 @@ public class PermissionController extends AbstractAdminController {
     public String delete(Integer id,RedirectAttributes redirectAttributes) {
         TsmPermission permission = permissionService.load(TsmPermission.class, id);
         if (permission.getTsmRoles() != null && permission.getTsmRoles().size() > 0) {
-            this.addMessage(redirectAttributes, getMessage("sm.permission.delete.inuse"));
+            this.addErrorMessage(redirectAttributes, getMessage("sm.permission.delete.inuse"));
         } else {
             permissionService.delete(TsmPermission.class, id);
-            this.addMessage(redirectAttributes, getMessage("COMMON_DELETE_SUCCESS"));
+            this.addSuccessMessage(redirectAttributes, getMessage("COMMON_DELETE_SUCCESS"));
         }
         return "redirect:/sm/permission?recondition=true";
     }

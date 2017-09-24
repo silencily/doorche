@@ -57,7 +57,7 @@ public class UserController extends AbstractAdminController {
         }
         userService.saveOrUpdate(user);
         model.addAttribute("user", user);
-        this.addMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
+        this.addSuccessMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
         return "/sm/user/info";
     }
 
@@ -80,7 +80,7 @@ public class UserController extends AbstractAdminController {
         }
         tsmUser.setTsmRoles(tsmRoles);
         userService.saveOrUpdate(tsmUser);
-        this.addMessage(redirectAttributes, getMessage("sm.user.assignRoles.suc"));
+        this.addSuccessMessage(redirectAttributes, getMessage("sm.user.assignRoles.suc"));
         return "redirect:/sm/user/edit";
     }
 

@@ -45,7 +45,7 @@ public class ParameterController extends AbstractAdminController {
         parameterService.saveOrUpdate(parameter);
 
         model.addAttribute("parameter", parameter);
-        this.addMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
+        this.addSuccessMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
         return "/sm/parameter/info";
     }
 
@@ -59,7 +59,7 @@ public class ParameterController extends AbstractAdminController {
     @RequestMapping("/delete")
     public String delete(Integer id, RedirectAttributes redirectAttributes) {
         parameterService.delete(TsmParameter.class, id);
-        this.addMessage(redirectAttributes, getMessage("COMMON_DELETE_SUCCESS"));
+        this.addSuccessMessage(redirectAttributes, getMessage("COMMON_DELETE_SUCCESS"));
         return "redirect:/sm/parameter?recondition=true";
     }
 

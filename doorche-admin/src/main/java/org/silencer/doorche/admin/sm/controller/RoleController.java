@@ -86,11 +86,11 @@ public class RoleController extends AbstractAdminController {
             TreeTableModel<TsmPermission> treeTable = new TreeTableModel<TsmPermission>(permissionList, checkedPermissions, "getId");
             model.addAttribute("permissionList", treeTable.getNodes());
         } catch (Exception e) {
-            this.addMessage(model, getMessage("COMMON_SAVE_FAILED"));
+            this.addErrorMessage(model, getMessage("COMMON_SAVE_FAILED"));
             logger.error(e);
         }
         model.addAttribute("role", role);
-        this.addMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
+        this.addSuccessMessage(model, getMessage("COMMON_SAVE_SUCCESS"));
         return "sm/role/info";
     }
 }
