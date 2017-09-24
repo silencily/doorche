@@ -20,7 +20,7 @@
     </ul>
     <div class="tab-content">
         <div class="tab-pane active">
-            <sys:message content="${message}" type="info"/>
+            <sys:message content="${message}" type="${messageType}"/>
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">用户详情</h3>
